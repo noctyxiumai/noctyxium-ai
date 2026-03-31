@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Noctyxium AI</title>
+</head>
+
+<body style="background:black;color:white;text-align:center;font-family:sans-serif;">
+
+<h1>💀 Noctyxium AI</h1>
+<p>Type your fear...</p>
+
+<textarea id="input" style="width:80%;height:100px;"></textarea><br><br>
+
+<button onclick="generate()">Generate Horror</button>
+
+<p id="output"></p>
+
+<script>
+function generate(){
+  let text = document.getElementById("input").value;
+  document.getElementById("output").innerText =
+  "😈 Tumne likha: " + text + "\n\n(Abhi AI connect karna baaki hai...)";
+}
+</script>
+
+</body>
+</html>

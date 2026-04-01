@@ -6,202 +6,205 @@
 <title>Noctyxium AI</title>
 
 <style>
-* {margin:0; padding:0; box-sizing:border-box;}
+*{margin:0;padding:0;box-sizing:border-box;}
 
-body {
+body{
   font-family: Arial;
-  background:#050505;
-  color:white;
-  overflow-x:hidden;
-}
-
-/* 🌫️ LIGHT FOG (SUBTLE) */
-body::before {
-  content:"";
-  position:fixed;
-  width:100%;
-  height:100%;
-  background: radial-gradient(circle, rgba(255,255,255,0.03), transparent 70%);
-  animation: fog 20s infinite linear;
-  z-index:0;
-}
-@keyframes fog {
-  0%{transform:translate(0,0)}
-  50%{transform:translate(20px,20px)}
-  100%{transform:translate(0,0)}
+  background:#f5f6f7;
+  color:#222;
 }
 
 /* NAVBAR */
-.navbar {
-  position: sticky;
-  top:0;
-  background: rgba(0,0,0,0.85);
-  padding: 12px;
+.navbar{
+  background:#fff;
+  border-bottom:1px solid #ddd;
+  padding:12px;
   display:flex;
-  justify-content: space-between;
+  justify-content:space-between;
   align-items:center;
-  z-index:999;
-  border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
-.logo {
+.logo{
   display:flex;
   align-items:center;
   gap:8px;
   font-weight:bold;
 }
 
-.logo img {
-  height:32px;
+.logo img{height:30px;}
+.logo span{color:#e63946;}
+
+/* LAYOUT */
+.container{
+  display:flex;
+  height:calc(100vh - 60px);
 }
 
-.logo span {
-  color:#ff3b3b;
-}
-
-/* NAV LINKS */
-.navbar a {
-  color:#ccc;
-  margin:5px;
-  padding:7px 12px;
-  border:1px solid #222;
-  border-radius:20px;
-  transition:0.3s;
-}
-
-.navbar a:hover {
-  background:#111;
-  border-color:#ff2a2a;
-  color:#fff;
-}
-
-/* TITLE */
-.title {
-  text-align:center;
-  font-size:2rem;
-  margin-top:40px;
-  color:#ff3b3b;
-  text-shadow:0 0 15px rgba(255,0,0,0.3);
-}
-
-/* HERO */
-.hero {
-  text-align:center;
-  margin:20px;
-}
-
-.hero p {
-  color:#bbb;
-  margin-bottom:10px;
-}
-
-/* BUTTON */
-.btn {
-  padding:10px 18px;
-  background:#111;
-  border:1px solid #333;
-  border-radius:10px;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-.btn:hover {
-  border-color:#ff2a2a;
-  box-shadow:0 0 15px rgba(255,0,0,0.2);
-}
-
-/* CARDS */
-.card {
-  background:#111;
-  margin:12px;
+/* SIDEBAR */
+.sidebar{
+  width:260px;
+  background:#fff;
+  border-right:1px solid #ddd;
   padding:15px;
-  border-radius:12px;
-  border:1px solid #222;
-  transition:0.3s;
+  overflow:auto;
 }
 
-.card:hover {
-  border-color:#ff2a2a;
-  box-shadow:0 0 15px rgba(255,0,0,0.15);
+.prompt{
+  padding:10px;
+  background:#f8f8f8;
+  margin-bottom:8px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.prompt:hover{
+  background:#fff;
+  border:1px solid #e63946;
 }
 
 /* CHAT */
-iframe {
+.chat-area{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
+
+.chat-header{
+  padding:10px;
+  border-bottom:1px solid #ddd;
+  text-align:center;
+  color:#e63946;
+}
+
+.chat-box{
+  flex:1;
+}
+
+iframe{
   width:100%;
-  height:650px;
+  height:100%;
   border:none;
-  border-radius:12px;
-  margin-top:10px;
 }
 
-/* CHAT HEADING */
-.chat-heading {
-  text-align:center;
-  margin-top:20px;
-  color:#ff3b3b;
+/* TOP BUTTONS */
+.top-actions{
+  display:flex;
+  gap:10px;
+  padding:10px;
+  justify-content:center;
 }
 
-/* PROMPT TEXT */
-.prompt-text {
-  text-align:center;
-  color:#888;
-  font-size:0.9rem;
-  margin-bottom:10px;
+.btn{
+  padding:8px 12px;
+  border:1px solid #ddd;
+  border-radius:6px;
+  cursor:pointer;
+  background:#fff;
+}
+
+.btn:hover{
+  border-color:#e63946;
 }
 
 /* MOBILE */
 @media(max-width:768px){
-  .title {font-size:1.5rem;}
-  iframe {height:550px;}
+  .sidebar{display:none;}
 }
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
 <div class="navbar">
   <div class="logo">
     <img src="logo.png">
     <span>Noctyxium AI</span>
   </div>
-  <div>
-    <a href="#">Home</a>
-    <a href="#chat">AI</a>
-    <a href="#">About</a>
+</div>
+
+<div class="container">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h3>Trending Prompts</h3>
+
+    <div class="prompt" onclick="sendPrompt('3AM hospital horror story')">
+      3AM hospital horror story
+    </div>
+
+    <div class="prompt" onclick="sendPrompt('haunted village story')">
+      Haunted village
+    </div>
+
+    <div class="prompt" onclick="sendPrompt('ghost in railway station')">
+      Railway ghost
+    </div>
+
+    <div class="prompt" onclick="randomPrompt()">
+      🎲 Random Story
+    </div>
+
   </div>
-</div>
 
-<!-- TITLE -->
-<h1 class="title">NOCTYXIUM AI HORROR</h1>
+  <!-- CHAT -->
+  <div class="chat-area">
 
-<!-- HERO -->
-<div class="hero">
-  <p>Type your fear... if you dare.</p>
-  <button class="btn" onclick="scrollToChat()">Try Horror AI</button>
-</div>
+    <div class="chat-header">
+      Generate cinematic horror stories instantly
+    </div>
 
-<!-- FEATURES -->
-<div class="card">🎬 Cinematic horror stories</div>
-<div class="card">🌍 Multi-language AI</div>
-<div class="card">😈 3AM Fear Mode</div>
+    <!-- ACTION BUTTONS -->
+    <div class="top-actions">
+      <button class="btn" onclick="share()">🔗 Share</button>
+      <button class="btn" onclick="toggleMode()">🌙 Toggle Mode</button>
+      <button class="btn" onclick="alert('3AM Mode Activated 😈')">⏰ 3AM Mode</button>
+    </div>
 
-<!-- CHAT -->
-<div id="chat" style="margin:20px;">
-  
-  <h2 class="chat-heading">Ask your story...</h2>
-  
-  <p class="prompt-text">
-    Try: "3AM horror story", "ghost in hospital", "haunted village"
-  </p>
+    <div class="chat-box">
+      <iframe id="chatbot" src="https://udify.app/chatbot/sr6l1agghqHaG7e9"></iframe>
+    </div>
 
-  <iframe src="https://udify.app/chatbot/sr6l1agghqHaG7e9"></iframe>
+  </div>
+
 </div>
 
 <script>
-function scrollToChat(){
-  document.getElementById("chat").scrollIntoView({behavior:"smooth"});
+
+/* PROMPT CLICK (LIMITED) */
+function sendPrompt(text){
+  alert("👉 Copy this prompt:\n\n" + text);
 }
+
+/* RANDOM */
+function randomPrompt(){
+  const list = [
+    "3AM horror story",
+    "ghost in hospital",
+    "creepy forest",
+    "haunted train"
+  ];
+  const random = list[Math.floor(Math.random()*list.length)];
+  sendPrompt(random);
+}
+
+/* SHARE */
+function share(){
+  navigator.share ? 
+    navigator.share({title:"Noctyxium AI", url:window.location.href}) :
+    alert("Copy link: " + window.location.href);
+}
+
+/* DARK/LIGHT MODE */
+function toggleMode(){
+  if(document.body.style.background=="black"){
+    document.body.style.background="#f5f6f7";
+    document.body.style.color="#000";
+  }else{
+    document.body.style.background="black";
+    document.body.style.color="#fff";
+  }
+}
+
 </script>
 
 </body>

@@ -10,16 +10,17 @@
 
 body{
   font-family:Arial;
-  background:#f5f6f8;
-  color:#222;
+  background:#0f1115; /* soft dark */
+  color:#e4e4e4;
 }
 
 /* NAVBAR */
 .navbar{
-  background:#ffffff;
-  border-bottom:1px solid #ddd;
+  background:#12141a;
+  border-bottom:1px solid #1f222b;
   padding:12px;
   display:flex;
+  justify-content:space-between;
   align-items:center;
 }
 
@@ -28,9 +29,8 @@ body{
   align-items:center;
   gap:8px;
 }
-
-.logo img{height:28px;}
-.logo span{color:#e63946;font-weight:bold;}
+.logo img{height:30px;}
+.logo span{color:#ff3b3b;}
 
 /* LAYOUT */
 .container{
@@ -41,28 +41,36 @@ body{
 /* SIDEBAR */
 .sidebar{
   width:260px;
-  background:#ffffff;
-  border-right:1px solid #ddd;
+  background:#12141a;
   padding:12px;
+  border-right:1px solid #1f222b;
   overflow:auto;
 }
 
-.sidebar h2{margin-bottom:10px;}
-.sidebar h3{margin-top:10px;font-size:12px;color:#666;}
+.sidebar h2{
+  margin-bottom:10px;
+}
+
+.sidebar h3{
+  margin-top:10px;
+  font-size:12px;
+  color:#888;
+}
 
 /* PROMPTS */
 .prompt{
-  background:#f0f2f5;
+  background:#1a1d25;
   padding:10px;
   margin:5px 0;
   border-radius:6px;
   cursor:pointer;
   font-size:13px;
+  transition:0.2s;
 }
 
 .prompt:hover{
-  border:1px solid #e63946;
-  background:#fff;
+  background:#252a35;
+  border:1px solid #ff3b3b;
 }
 
 /* CHAT */
@@ -75,8 +83,8 @@ body{
 .chat-header{
   padding:12px;
   text-align:center;
-  border-bottom:1px solid #ddd;
-  color:#e63946;
+  border-bottom:1px solid #1f222b;
+  color:#ff3b3b;
 }
 
 .top-actions{
@@ -89,13 +97,14 @@ body{
 .btn{
   padding:8px 12px;
   border-radius:6px;
-  border:1px solid #ccc;
-  background:#fff;
+  border:1px solid #333;
+  background:#1a1d25;
+  color:#ddd;
   cursor:pointer;
 }
 
 .btn:hover{
-  border-color:#e63946;
+  border-color:#ff3b3b;
 }
 
 /* CHAT BOX */
@@ -109,7 +118,7 @@ iframe{
   height:100%;
   border:none;
   border-radius:10px;
-  background:#fff;
+  background:#0f1115;
 }
 
 /* MOBILE */
@@ -135,18 +144,26 @@ iframe{
 
 <h2>🎬 Explore Stories</h2>
 
-<h3>🔥 Horror</h3>
-<div class="prompt" onclick="copyPrompt('3AM horror story cinematic')">3AM Horror</div>
-<div class="prompt" onclick="copyPrompt('ghost in hospital story')">Hospital Ghost</div>
+<h3>🔥 Psychological Horror</h3>
+<div class="prompt" onclick="copyPrompt('3AM mirror entity talking to you story cinematic')">Mirror Entity</div>
+<div class="prompt" onclick="copyPrompt('phone camera ghost appearing story realistic horror')">Camera Ghost</div>
+<div class="prompt" onclick="copyPrompt('someone watching you from darkness story')">Watcher in dark</div>
 
-<h3>🌲 Adventure</h3>
-<div class="prompt" onclick="copyPrompt('lost in jungle survival story')">Jungle Survival</div>
+<h3>🌲 Survival + Adventure</h3>
+<div class="prompt" onclick="copyPrompt('lost in forest survival horror with creature')">Forest Survival</div>
+<div class="prompt" onclick="copyPrompt('ancient temple hidden monster story')">Temple Monster</div>
 
-<h3>🧠 Mystery</h3>
-<div class="prompt" onclick="copyPrompt('unsolved murder mystery')">Murder Mystery</div>
+<h3>🧠 Deep Mystery</h3>
+<div class="prompt" onclick="copyPrompt('parallel world hidden door mystery story')">Parallel Door</div>
+<div class="prompt" onclick="copyPrompt('man living same day loop mystery story')">Time Loop</div>
 
-<h3>🚀 Sci-Fi</h3>
-<div class="prompt" onclick="copyPrompt('AI becomes evil story')">Evil AI</div>
+<h3>🔪 Thriller</h3>
+<div class="prompt" onclick="copyPrompt('unknown stalker following you story')">Unknown Stalker</div>
+<div class="prompt" onclick="copyPrompt('kidnap escape dark thriller story')">Escape Thriller</div>
+
+<h3>🚀 Sci-Fi Horror</h3>
+<div class="prompt" onclick="copyPrompt('AI becomes self aware horror story')">Evil AI</div>
+<div class="prompt" onclick="copyPrompt('alien signal controlling humans story')">Alien Signal</div>
 
 <div class="prompt" onclick="randomPrompt()">🎲 Random Story</div>
 
@@ -160,13 +177,13 @@ Generate cinematic stories instantly
 </div>
 
 <div class="top-actions">
-<button class="btn" onclick="clearChat()">🗑 Clear</button>
+<button class="btn" onclick="clearChat()">🗑 Clear Chat</button>
 <button class="btn" onclick="share()">🔗 Share</button>
-<button class="btn" onclick="downloadText()">⬇ Download</button>
+<button class="btn" onclick="alert('3AM Mode Activated 😈')">⏰ 3AM Mode</button>
 </div>
 
 <div class="chat-box">
-<iframe id="chatbot"></iframe>
+<iframe id="chatbot" src="https://udify.app/chatbot/sr6l1agghqHaG7e9"></iframe>
 </div>
 
 </div>
@@ -175,48 +192,41 @@ Generate cinematic stories instantly
 
 <script>
 
-/* LOAD CHAT */
-function loadChat(){
-  document.getElementById("chatbot").src =
-  "https://udify.app/chatbot/sr6l1agghqHaG7e9?session="+Date.now();
-}
-loadChat();
-
-/* COPY PROMPT */
+// COPY PROMPT
 function copyPrompt(text){
   navigator.clipboard.writeText(text);
-  alert("Copied:\n"+text+"\nPaste in chat 👇");
+  alert("Copied:\n"+text+"\n\nPaste in chat 👇");
 }
 
-/* RANDOM */
+// RANDOM PROMPT
 function randomPrompt(){
   const arr=[
-    "dark forest horror story",
-    "AI gone evil",
-    "ghost in room",
-    "alien invasion",
-    "time loop mystery"
+    "haunted hospital 3AM story",
+    "dark forest creature story",
+    "AI gone evil story",
+    "unknown shadow watching you",
+    "time loop horror"
   ];
-  copyPrompt(arr[Math.floor(Math.random()*arr.length)]);
+  const r=arr[Math.floor(Math.random()*arr.length)];
+  copyPrompt(r);
 }
 
-/* CLEAR CHAT (BEST POSSIBLE FIX) */
+// ✅ FIXED CLEAR CHAT (WORKING)
 function clearChat(){
-  loadChat();
+  let iframe=document.getElementById("chatbot");
+  iframe.src = iframe.src + "?reload=" + new Date().getTime();
 }
 
-/* SHARE */
+// SHARE
 function share(){
   if(navigator.share){
-    navigator.share({title:"Noctyxium AI",url:window.location.href});
+    navigator.share({
+      title:"Noctyxium AI",
+      url:window.location.href
+    });
   }else{
-    alert(window.location.href);
+    alert("Copy link:\n"+window.location.href);
   }
-}
-
-/* DOWNLOAD (manual copy helper) */
-function downloadText(){
-  alert("Long press text in chat → copy → save in notes");
 }
 
 </script>

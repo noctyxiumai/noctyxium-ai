@@ -6,16 +6,27 @@
 <title>Noctyxium AI</title>
 
 <style>
-* {margin:0; padding:0; box-sizing:border-box;}
-
-body {
-  font-family: Arial;
-  background:#000;
-  color:white;
-  overflow-x:hidden;
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-/* 🌫️ FOG EFFECT */
+body {
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, rgba(120,0,0,0.1), transparent 40%), #000;
+  color:white;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+
+/* 🔥 FIX: content always above fog */
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* 🌫️ FOG */
 .fog {
   position: fixed;
   width: 200%;
@@ -23,6 +34,7 @@ body {
   background: radial-gradient(circle, rgba(255,255,255,0.03), transparent 60%);
   animation: fogMove 25s linear infinite;
   z-index:0;
+  filter: blur(20px);
 }
 
 @keyframes fogMove {
@@ -46,11 +58,13 @@ body {
   100% {transform: translateY(-10vh)}
 }
 
-/* NAVBAR */
+/* 🔥 NAVBAR (GLASS STYLE) */
 .navbar {
   position: sticky;
   top:0;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,0,0,0.2);
   padding: 12px;
   display:flex;
   justify-content: space-between;
@@ -58,7 +72,7 @@ body {
   z-index:999;
 }
 
-/* ✅ LOGO STYLE */
+/* LOGO */
 .logo {
   display:flex;
   align-items:center;
@@ -69,6 +83,11 @@ body {
 .logo img {
   height:35px;
   filter: drop-shadow(0 0 8px red);
+  transition:0.3s;
+}
+
+.logo img:hover {
+  transform: scale(1.1);
 }
 
 .logo span {
@@ -76,6 +95,7 @@ body {
   text-shadow:0 0 10px rgba(255,0,0,0.5);
 }
 
+/* NAV LINKS */
 .navbar a {
   color:#ccc;
   margin:5px;
@@ -83,29 +103,28 @@ body {
   border:1px solid #333;
   border-radius:20px;
   transition:0.3s;
+  font-size:0.9rem;
 }
 
 .navbar a:hover {
-  background:red;
-  box-shadow:0 0 10px red;
+  background: rgba(255,0,0,0.15);
+  border-color: red;
+  box-shadow:0 0 12px rgba(255,0,0,0.3);
+  color:white;
 }
 
-/* 🩸 TITLE */
+/* TITLE */
 .title {
   text-align:center;
   font-size:2.2rem;
   margin-top:40px;
+  letter-spacing:2px;
   color:#ff0000;
   text-shadow:
     0 0 5px #600,
     0 0 15px red,
-    0 0 30px darkred;
-  animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-  from {text-shadow:0 0 10px red;}
-  to {text-shadow:0 0 30px crimson;}
+    0 0 30px darkred,
+    0 0 60px rgba(255,0,0,0.35);
 }
 
 /* HERO */
@@ -114,6 +133,11 @@ body {
   margin:20px;
 }
 
+.hero p {
+  color:#bbb;
+}
+
+/* BUTTON */
 .btn {
   padding:10px 15px;
   margin:10px;
@@ -121,15 +145,16 @@ body {
   border:1px solid #444;
   border-radius:10px;
   cursor:pointer;
-  transition:0.3s;
+  transition: all 0.3s ease;
 }
 
 .btn:hover {
-  background:red;
+  background:linear-gradient(180deg,#a10000,#650000);
   transform:scale(1.05);
-  box-shadow:0 0 20px red;
+  box-shadow:0 0 20px rgba(255,0,0,0.4);
 }
 
+/* CARDS */
 .card {
   background:#111;
   margin:10px;
@@ -141,16 +166,30 @@ body {
 
 .card:hover {
   transform:translateY(-5px);
-  box-shadow:0 0 20px red;
+  border-color:red;
+  box-shadow:0 0 20px rgba(255,0,0,0.25);
 }
 
+/* CHAT */
 iframe {
   width:100%;
   height:700px;
   border:none;
   border-radius:15px;
+  background:#111;
 }
 
+/* SUBTLE SCREEN EFFECT */
+body {
+  animation: flicker 6s infinite;
+}
+
+@keyframes flicker {
+  0%,100% {opacity:1;}
+  50% {opacity:0.98;}
+}
+
+/* MOBILE */
 @media(max-width:768px){
   .title {font-size:1.5rem;}
   iframe {height:600px;}
@@ -172,7 +211,6 @@ for(let i=0;i<30;i++){
 }
 </script>
 
-<!-- ✅ NAVBAR WITH LOGO -->
 <div class="navbar">
   <div class="logo">
     <img src="logo.png" alt="logo">

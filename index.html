@@ -9,16 +9,16 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-  font-family: Arial, sans-serif;
-  background:#ffffff;
-  color:#222;
+  font-family:Arial;
+  background:#0f1115; /* soft dark */
+  color:#e4e4e4;
 }
 
 /* NAVBAR */
 .navbar{
-  background:#fff;
-  border-bottom:1px solid #ddd;
-  padding:12px 16px;
+  background:#12141a;
+  border-bottom:1px solid #1f222b;
+  padding:12px;
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -28,11 +28,9 @@ body{
   display:flex;
   align-items:center;
   gap:8px;
-  font-weight:bold;
 }
-
 .logo img{height:30px;}
-.logo span{color:#e63946;}
+.logo span{color:#ff3b3b;}
 
 /* LAYOUT */
 .container{
@@ -43,9 +41,9 @@ body{
 /* SIDEBAR */
 .sidebar{
   width:260px;
-  background:#fff;
-  border-right:1px solid #ddd;
-  padding:15px;
+  background:#12141a;
+  padding:12px;
+  border-right:1px solid #1f222b;
   overflow:auto;
 }
 
@@ -55,23 +53,24 @@ body{
 
 .sidebar h3{
   margin-top:10px;
-  margin-bottom:6px;
-  font-size:13px;
-  color:#666;
+  font-size:12px;
+  color:#888;
 }
 
+/* PROMPTS */
 .prompt{
-  background:#f7f7f7;
+  background:#1a1d25;
   padding:10px;
-  margin-bottom:6px;
+  margin:5px 0;
   border-radius:6px;
   cursor:pointer;
   font-size:13px;
+  transition:0.2s;
 }
 
 .prompt:hover{
-  border:1px solid #e63946;
-  background:#fff;
+  background:#252a35;
+  border:1px solid #ff3b3b;
 }
 
 /* CHAT */
@@ -83,45 +82,35 @@ body{
 
 .chat-header{
   padding:12px;
-  border-bottom:1px solid #ddd;
   text-align:center;
-  color:#e63946;
+  border-bottom:1px solid #1f222b;
+  color:#ff3b3b;
 }
 
 .top-actions{
   display:flex;
-  gap:10px;
   justify-content:center;
+  gap:10px;
   padding:10px;
-  border-bottom:1px solid #eee;
 }
 
 .btn{
   padding:8px 12px;
-  border:1px solid #ddd;
   border-radius:6px;
-  background:#fff;
+  border:1px solid #333;
+  background:#1a1d25;
+  color:#ddd;
   cursor:pointer;
 }
 
 .btn:hover{
-  border-color:#e63946;
+  border-color:#ff3b3b;
 }
 
-/* DELETE BUTTON */
-.delete-btn{
-  border-color:#e63946;
-  color:#e63946;
-}
-
-.delete-btn:hover{
-  background:#ffe5e7;
-}
-
+/* CHAT BOX */
 .chat-box{
   flex:1;
-  padding:12px;
-  background:#fafafa;
+  padding:10px;
 }
 
 iframe{
@@ -129,7 +118,7 @@ iframe{
   height:100%;
   border:none;
   border-radius:10px;
-  background:#fff;
+  background:#0f1115;
 }
 
 /* MOBILE */
@@ -155,29 +144,26 @@ iframe{
 
 <h2>🎬 Explore Stories</h2>
 
-<h3>🔥 Horror</h3>
-<div class="prompt" onclick="copyPrompt('3AM hospital horror story with twist')">3AM hospital horror</div>
-<div class="prompt" onclick="copyPrompt('haunted village cinematic story')">Haunted village</div>
-<div class="prompt" onclick="copyPrompt('abandoned school ghost story')">Abandoned school</div>
+<h3>🔥 Psychological Horror</h3>
+<div class="prompt" onclick="copyPrompt('3AM mirror entity talking to you story cinematic')">Mirror Entity</div>
+<div class="prompt" onclick="copyPrompt('phone camera ghost appearing story realistic horror')">Camera Ghost</div>
+<div class="prompt" onclick="copyPrompt('someone watching you from darkness story')">Watcher in dark</div>
 
-<h3>🌲 Adventure</h3>
-<div class="prompt" onclick="copyPrompt('lost in jungle survival story')">Jungle survival</div>
-<div class="prompt" onclick="copyPrompt('treasure hunt temple adventure')">Treasure hunt</div>
-<div class="prompt" onclick="copyPrompt('mountain expedition danger story')">Mountain expedition</div>
+<h3>🌲 Survival + Adventure</h3>
+<div class="prompt" onclick="copyPrompt('lost in forest survival horror with creature')">Forest Survival</div>
+<div class="prompt" onclick="copyPrompt('ancient temple hidden monster story')">Temple Monster</div>
 
-<h3>🧠 Mystery</h3>
-<div class="prompt" onclick="copyPrompt('unsolved murder mystery story')">Murder mystery</div>
-<div class="prompt" onclick="copyPrompt('missing person investigation')">Missing case</div>
-<div class="prompt" onclick="copyPrompt('secret room mystery story')">Secret room</div>
+<h3>🧠 Deep Mystery</h3>
+<div class="prompt" onclick="copyPrompt('parallel world hidden door mystery story')">Parallel Door</div>
+<div class="prompt" onclick="copyPrompt('man living same day loop mystery story')">Time Loop</div>
 
 <h3>🔪 Thriller</h3>
-<div class="prompt" onclick="copyPrompt('serial killer chase thriller story')">Serial killer</div>
-<div class="prompt" onclick="copyPrompt('kidnap escape thriller story')">Kidnap escape</div>
+<div class="prompt" onclick="copyPrompt('unknown stalker following you story')">Unknown Stalker</div>
+<div class="prompt" onclick="copyPrompt('kidnap escape dark thriller story')">Escape Thriller</div>
 
-<h3>🚀 Sci-Fi</h3>
-<div class="prompt" onclick="copyPrompt('alien invasion survival story')">Alien invasion</div>
-<div class="prompt" onclick="copyPrompt('time travel gone wrong story')">Time travel</div>
-<div class="prompt" onclick="copyPrompt('AI robot turning evil story')">AI robot</div>
+<h3>🚀 Sci-Fi Horror</h3>
+<div class="prompt" onclick="copyPrompt('AI becomes self aware horror story')">Evil AI</div>
+<div class="prompt" onclick="copyPrompt('alien signal controlling humans story')">Alien Signal</div>
 
 <div class="prompt" onclick="randomPrompt()">🎲 Random Story</div>
 
@@ -191,7 +177,7 @@ Generate cinematic stories instantly
 </div>
 
 <div class="top-actions">
-<button class="btn delete-btn" onclick="confirmReset()">🗑 Clear Chat</button>
+<button class="btn" onclick="clearChat()">🗑 Clear Chat</button>
 <button class="btn" onclick="share()">🔗 Share</button>
 <button class="btn" onclick="alert('3AM Mode Activated 😈')">⏰ 3AM Mode</button>
 </div>
@@ -206,33 +192,38 @@ Generate cinematic stories instantly
 
 <script>
 
+// COPY PROMPT
 function copyPrompt(text){
   navigator.clipboard.writeText(text);
-  alert("Copied:\n" + text + "\n\nPaste in chat 👇");
+  alert("Copied:\n"+text+"\n\nPaste in chat 👇");
 }
 
+// RANDOM PROMPT
 function randomPrompt(){
-  const list=[
-    "3AM horror story",
-    "ghost in hospital",
-    "creepy forest story",
-    "alien invasion survival",
-    "murder mystery case"
+  const arr=[
+    "haunted hospital 3AM story",
+    "dark forest creature story",
+    "AI gone evil story",
+    "unknown shadow watching you",
+    "time loop horror"
   ];
-  const r=list[Math.floor(Math.random()*list.length)];
+  const r=arr[Math.floor(Math.random()*arr.length)];
   copyPrompt(r);
 }
 
-function confirmReset(){
-  if(confirm("Delete full chat?")){
-    document.getElementById("chatbot").src=
-    "https://udify.app/chatbot/sr6l1agghqHaG7e9";
-  }
+// ✅ FIXED CLEAR CHAT (WORKING)
+function clearChat(){
+  let iframe=document.getElementById("chatbot");
+  iframe.src = iframe.src + "?reload=" + new Date().getTime();
 }
 
+// SHARE
 function share(){
   if(navigator.share){
-    navigator.share({title:"Noctyxium AI",url:window.location.href});
+    navigator.share({
+      title:"Noctyxium AI",
+      url:window.location.href
+    });
   }else{
     alert("Copy link:\n"+window.location.href);
   }

@@ -54,7 +54,26 @@ body {
   padding: 12px;
   display:flex;
   justify-content: space-between;
+  align-items:center;
   z-index:999;
+}
+
+/* ✅ LOGO STYLE */
+.logo {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:bold;
+}
+
+.logo img {
+  height:35px;
+  filter: drop-shadow(0 0 8px red);
+}
+
+.logo span {
+  color:#ff2a2a;
+  text-shadow:0 0 10px rgba(255,0,0,0.5);
 }
 
 .navbar a {
@@ -71,7 +90,7 @@ body {
   box-shadow:0 0 10px red;
 }
 
-/* 🩸 BLOOD TITLE */
+/* 🩸 TITLE */
 .title {
   text-align:center;
   font-size:2.2rem;
@@ -89,29 +108,12 @@ body {
   to {text-shadow:0 0 30px crimson;}
 }
 
-/* BLOOD DRIP */
-.title::after {
-  content:"";
-  display:block;
-  width:100%;
-  height:6px;
-  background:red;
-  animation: drip 2s infinite;
-}
-
-@keyframes drip {
-  0% {height:6px;}
-  50% {height:16px;}
-  100% {height:6px;}
-}
-
 /* HERO */
 .hero {
   text-align:center;
   margin:20px;
 }
 
-/* BUTTON */
 .btn {
   padding:10px 15px;
   margin:10px;
@@ -128,7 +130,6 @@ body {
   box-shadow:0 0 20px red;
 }
 
-/* CARDS */
 .card {
   background:#111;
   margin:10px;
@@ -143,7 +144,6 @@ body {
   box-shadow:0 0 20px red;
 }
 
-/* CHAT */
 iframe {
   width:100%;
   height:700px;
@@ -151,7 +151,6 @@ iframe {
   border-radius:15px;
 }
 
-/* MOBILE */
 @media(max-width:768px){
   .title {font-size:1.5rem;}
   iframe {height:600px;}
@@ -163,7 +162,6 @@ iframe {
 
 <div class="fog"></div>
 
-<!-- 👻 PARTICLES -->
 <script>
 for(let i=0;i<30;i++){
   let p=document.createElement("div");
@@ -174,9 +172,12 @@ for(let i=0;i<30;i++){
 }
 </script>
 
-<!-- NAVBAR -->
+<!-- ✅ NAVBAR WITH LOGO -->
 <div class="navbar">
-  <div>💀 Noctyxium AI</div>
+  <div class="logo">
+    <img src="logo.png" alt="logo">
+    <span>Noctyxium AI</span>
+  </div>
   <div>
     <a href="#">Home</a>
     <a href="#chat">AI</a>
@@ -184,7 +185,6 @@ for(let i=0;i<30;i++){
   </div>
 </div>
 
-<!-- TITLE -->
 <h1 class="title">NOCTYXIUM AI HORROR</h1>
 
 <div class="hero">
@@ -192,12 +192,10 @@ for(let i=0;i<30;i++){
   <button class="btn" onclick="scrollToChat()">Open AI</button>
 </div>
 
-<!-- FEATURES -->
 <div class="card">🎬 Cinematic horror stories</div>
 <div class="card">🌍 Multi-language AI</div>
 <div class="card">😈 3AM Fear Mode</div>
 
-<!-- CHAT -->
 <div id="chat" style="margin:20px;">
   <iframe src="https://udify.app/chatbot/sr6l1agghqHaG7e9"></iframe>
 </div>

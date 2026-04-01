@@ -10,15 +10,15 @@
 
 body{
   font-family:Arial;
-  background:#0f1115;
-  color:#e4e4e4;
+  background:#f5f6f8;
+  color:#222;
 }
 
 /* NAVBAR */
 .navbar{
-  background:#12141a;
+  background:#ffffff;
+  border-bottom:1px solid #ddd;
   padding:12px;
-  border-bottom:1px solid #1f222b;
   display:flex;
   align-items:center;
 }
@@ -30,7 +30,7 @@ body{
 }
 
 .logo img{height:28px;}
-.logo span{color:#ff3b3b;font-weight:bold;}
+.logo span{color:#e63946;font-weight:bold;}
 
 /* LAYOUT */
 .container{
@@ -41,25 +41,18 @@ body{
 /* SIDEBAR */
 .sidebar{
   width:260px;
-  background:#12141a;
-  border-right:1px solid #1f222b;
+  background:#ffffff;
+  border-right:1px solid #ddd;
   padding:12px;
   overflow:auto;
 }
 
-.sidebar h2{
-  margin-bottom:10px;
-}
-
-.sidebar h3{
-  margin-top:10px;
-  font-size:12px;
-  color:#888;
-}
+.sidebar h2{margin-bottom:10px;}
+.sidebar h3{margin-top:10px;font-size:12px;color:#666;}
 
 /* PROMPTS */
 .prompt{
-  background:#1a1d25;
+  background:#f0f2f5;
   padding:10px;
   margin:5px 0;
   border-radius:6px;
@@ -68,8 +61,8 @@ body{
 }
 
 .prompt:hover{
-  background:#252a35;
-  border:1px solid #ff3b3b;
+  border:1px solid #e63946;
+  background:#fff;
 }
 
 /* CHAT */
@@ -82,8 +75,8 @@ body{
 .chat-header{
   padding:12px;
   text-align:center;
-  border-bottom:1px solid #1f222b;
-  color:#ff3b3b;
+  border-bottom:1px solid #ddd;
+  color:#e63946;
 }
 
 .top-actions{
@@ -96,21 +89,19 @@ body{
 .btn{
   padding:8px 12px;
   border-radius:6px;
-  border:1px solid #333;
-  background:#1a1d25;
-  color:#ddd;
+  border:1px solid #ccc;
+  background:#fff;
   cursor:pointer;
 }
 
 .btn:hover{
-  border-color:#ff3b3b;
+  border-color:#e63946;
 }
 
 /* CHAT BOX */
 .chat-box{
   flex:1;
   padding:10px;
-  background:#0f1115;
 }
 
 iframe{
@@ -118,6 +109,7 @@ iframe{
   height:100%;
   border:none;
   border-radius:10px;
+  background:#fff;
 }
 
 /* MOBILE */
@@ -144,25 +136,17 @@ iframe{
 <h2>🎬 Explore Stories</h2>
 
 <h3>🔥 Horror</h3>
-<div class="prompt" onclick="copyPrompt('3AM mirror horror story cinematic')">Mirror Entity</div>
-<div class="prompt" onclick="copyPrompt('ghost watching you in dark story')">Watcher</div>
-<div class="prompt" onclick="copyPrompt('phone camera ghost story')">Camera Ghost</div>
+<div class="prompt" onclick="copyPrompt('3AM horror story cinematic')">3AM Horror</div>
+<div class="prompt" onclick="copyPrompt('ghost in hospital story')">Hospital Ghost</div>
 
 <h3>🌲 Adventure</h3>
-<div class="prompt" onclick="copyPrompt('lost jungle survival horror story')">Jungle Survival</div>
-<div class="prompt" onclick="copyPrompt('temple treasure danger story')">Temple Danger</div>
+<div class="prompt" onclick="copyPrompt('lost in jungle survival story')">Jungle Survival</div>
 
 <h3>🧠 Mystery</h3>
-<div class="prompt" onclick="copyPrompt('time loop mystery story')">Time Loop</div>
-<div class="prompt" onclick="copyPrompt('secret hidden room mystery')">Hidden Room</div>
-
-<h3>🔪 Thriller</h3>
-<div class="prompt" onclick="copyPrompt('unknown stalker thriller story')">Stalker</div>
-<div class="prompt" onclick="copyPrompt('kidnap escape thriller')">Escape</div>
+<div class="prompt" onclick="copyPrompt('unsolved murder mystery')">Murder Mystery</div>
 
 <h3>🚀 Sci-Fi</h3>
 <div class="prompt" onclick="copyPrompt('AI becomes evil story')">Evil AI</div>
-<div class="prompt" onclick="copyPrompt('alien controlling humans story')">Alien Signal</div>
 
 <div class="prompt" onclick="randomPrompt()">🎲 Random Story</div>
 
@@ -176,15 +160,13 @@ Generate cinematic stories instantly
 </div>
 
 <div class="top-actions">
-<button class="btn" onclick="clearChat()">🗑 Clear Chat</button>
+<button class="btn" onclick="clearChat()">🗑 Clear</button>
 <button class="btn" onclick="share()">🔗 Share</button>
-<button class="btn" onclick="alert('3AM Mode Activated 😈')">⏰ 3AM Mode</button>
+<button class="btn" onclick="downloadText()">⬇ Download</button>
 </div>
 
-<div class="chat-box" id="chat-container">
-<iframe id="chatbot"
-src="https://udify.app/chatbot/sr6l1agghqHaG7e9">
-</iframe>
+<div class="chat-box">
+<iframe id="chatbot"></iframe>
 </div>
 
 </div>
@@ -193,7 +175,14 @@ src="https://udify.app/chatbot/sr6l1agghqHaG7e9">
 
 <script>
 
-/* COPY */
+/* LOAD CHAT */
+function loadChat(){
+  document.getElementById("chatbot").src =
+  "https://udify.app/chatbot/sr6l1agghqHaG7e9?session="+Date.now();
+}
+loadChat();
+
+/* COPY PROMPT */
 function copyPrompt(text){
   navigator.clipboard.writeText(text);
   alert("Copied:\n"+text+"\nPaste in chat 👇");
@@ -203,24 +192,17 @@ function copyPrompt(text){
 function randomPrompt(){
   const arr=[
     "dark forest horror story",
-    "AI turning evil",
-    "unknown shadow watching you",
-    "3AM hospital horror",
-    "alien invasion survival"
+    "AI gone evil",
+    "ghost in room",
+    "alien invasion",
+    "time loop mystery"
   ];
   copyPrompt(arr[Math.floor(Math.random()*arr.length)]);
 }
 
-/* ✅ FINAL CLEAR CHAT FIX */
+/* CLEAR CHAT (BEST POSSIBLE FIX) */
 function clearChat(){
-  const container=document.getElementById("chat-container");
-
-  container.innerHTML = `
-    <iframe id="chatbot"
-    src="https://udify.app/chatbot/sr6l1agghqHaG7e9?new=${Date.now()}"
-    style="width:100%;height:100%;border:none;border-radius:10px;">
-    </iframe>
-  `;
+  loadChat();
 }
 
 /* SHARE */
@@ -230,6 +212,11 @@ function share(){
   }else{
     alert(window.location.href);
   }
+}
+
+/* DOWNLOAD (manual copy helper) */
+function downloadText(){
+  alert("Long press text in chat → copy → save in notes");
 }
 
 </script>

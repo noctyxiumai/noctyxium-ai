@@ -9,8 +9,8 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-  font-family: Arial;
-  background:#f5f6f7;
+  font-family: Arial, sans-serif;
+  background:#ffffff;
   color:#222;
 }
 
@@ -18,7 +18,7 @@ body{
 .navbar{
   background:#fff;
   border-bottom:1px solid #ddd;
-  padding:12px;
+  padding:12px 16px;
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -49,17 +49,29 @@ body{
   overflow:auto;
 }
 
+.sidebar h2{
+  margin-bottom:10px;
+}
+
+.sidebar h3{
+  margin-top:10px;
+  margin-bottom:6px;
+  font-size:13px;
+  color:#666;
+}
+
 .prompt{
+  background:#f7f7f7;
   padding:10px;
-  background:#f8f8f8;
-  margin-bottom:8px;
+  margin-bottom:6px;
   border-radius:6px;
   cursor:pointer;
+  font-size:13px;
 }
 
 .prompt:hover{
-  background:#fff;
   border:1px solid #e63946;
+  background:#fff;
 }
 
 /* CHAT */
@@ -70,40 +82,54 @@ body{
 }
 
 .chat-header{
-  padding:10px;
+  padding:12px;
   border-bottom:1px solid #ddd;
   text-align:center;
   color:#e63946;
 }
 
-.chat-box{
-  flex:1;
-}
-
-iframe{
-  width:100%;
-  height:100%;
-  border:none;
-}
-
-/* TOP BUTTONS */
 .top-actions{
   display:flex;
   gap:10px;
-  padding:10px;
   justify-content:center;
+  padding:10px;
+  border-bottom:1px solid #eee;
 }
 
 .btn{
   padding:8px 12px;
   border:1px solid #ddd;
   border-radius:6px;
-  cursor:pointer;
   background:#fff;
+  cursor:pointer;
 }
 
 .btn:hover{
   border-color:#e63946;
+}
+
+/* DELETE BUTTON */
+.delete-btn{
+  border-color:#e63946;
+  color:#e63946;
+}
+
+.delete-btn:hover{
+  background:#ffe5e7;
+}
+
+.chat-box{
+  flex:1;
+  padding:12px;
+  background:#fafafa;
+}
+
+iframe{
+  width:100%;
+  height:100%;
+  border:none;
+  border-radius:10px;
+  background:#fff;
 }
 
 /* MOBILE */
@@ -124,84 +150,91 @@ iframe{
 
 <div class="container">
 
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-    <h3>Trending Prompts</h3>
+<!-- SIDEBAR -->
+<div class="sidebar">
 
-    <div class="prompt" onclick="sendPrompt('3AM hospital horror story')">
-      3AM hospital horror story
-    </div>
+<h2>🎬 Explore Stories</h2>
 
-    <div class="prompt" onclick="sendPrompt('haunted village story')">
-      Haunted village
-    </div>
+<h3>🔥 Horror</h3>
+<div class="prompt" onclick="copyPrompt('3AM hospital horror story with twist')">3AM hospital horror</div>
+<div class="prompt" onclick="copyPrompt('haunted village cinematic story')">Haunted village</div>
+<div class="prompt" onclick="copyPrompt('abandoned school ghost story')">Abandoned school</div>
 
-    <div class="prompt" onclick="sendPrompt('ghost in railway station')">
-      Railway ghost
-    </div>
+<h3>🌲 Adventure</h3>
+<div class="prompt" onclick="copyPrompt('lost in jungle survival story')">Jungle survival</div>
+<div class="prompt" onclick="copyPrompt('treasure hunt temple adventure')">Treasure hunt</div>
+<div class="prompt" onclick="copyPrompt('mountain expedition danger story')">Mountain expedition</div>
 
-    <div class="prompt" onclick="randomPrompt()">
-      🎲 Random Story
-    </div>
+<h3>🧠 Mystery</h3>
+<div class="prompt" onclick="copyPrompt('unsolved murder mystery story')">Murder mystery</div>
+<div class="prompt" onclick="copyPrompt('missing person investigation')">Missing case</div>
+<div class="prompt" onclick="copyPrompt('secret room mystery story')">Secret room</div>
 
-  </div>
+<h3>🔪 Thriller</h3>
+<div class="prompt" onclick="copyPrompt('serial killer chase thriller story')">Serial killer</div>
+<div class="prompt" onclick="copyPrompt('kidnap escape thriller story')">Kidnap escape</div>
 
-  <!-- CHAT -->
-  <div class="chat-area">
+<h3>🚀 Sci-Fi</h3>
+<div class="prompt" onclick="copyPrompt('alien invasion survival story')">Alien invasion</div>
+<div class="prompt" onclick="copyPrompt('time travel gone wrong story')">Time travel</div>
+<div class="prompt" onclick="copyPrompt('AI robot turning evil story')">AI robot</div>
 
-    <div class="chat-header">
-      Generate cinematic horror stories instantly
-    </div>
+<div class="prompt" onclick="randomPrompt()">🎲 Random Story</div>
 
-    <!-- ACTION BUTTONS -->
-    <div class="top-actions">
-      <button class="btn" onclick="share()">🔗 Share</button>
-      <button class="btn" onclick="toggleMode()">🌙 Toggle Mode</button>
-      <button class="btn" onclick="alert('3AM Mode Activated 😈')">⏰ 3AM Mode</button>
-    </div>
+</div>
 
-    <div class="chat-box">
-      <iframe id="chatbot" src="https://udify.app/chatbot/sr6l1agghqHaG7e9"></iframe>
-    </div>
+<!-- CHAT -->
+<div class="chat-area">
 
-  </div>
+<div class="chat-header">
+Generate cinematic stories instantly
+</div>
+
+<div class="top-actions">
+<button class="btn delete-btn" onclick="confirmReset()">🗑 Clear Chat</button>
+<button class="btn" onclick="share()">🔗 Share</button>
+<button class="btn" onclick="alert('3AM Mode Activated 😈')">⏰ 3AM Mode</button>
+</div>
+
+<div class="chat-box">
+<iframe id="chatbot" src="https://udify.app/chatbot/sr6l1agghqHaG7e9"></iframe>
+</div>
+
+</div>
 
 </div>
 
 <script>
 
-/* PROMPT CLICK (LIMITED) */
-function sendPrompt(text){
-  alert("👉 Copy this prompt:\n\n" + text);
+function copyPrompt(text){
+  navigator.clipboard.writeText(text);
+  alert("Copied:\n" + text + "\n\nPaste in chat 👇");
 }
 
-/* RANDOM */
 function randomPrompt(){
-  const list = [
+  const list=[
     "3AM horror story",
     "ghost in hospital",
-    "creepy forest",
-    "haunted train"
+    "creepy forest story",
+    "alien invasion survival",
+    "murder mystery case"
   ];
-  const random = list[Math.floor(Math.random()*list.length)];
-  sendPrompt(random);
+  const r=list[Math.floor(Math.random()*list.length)];
+  copyPrompt(r);
 }
 
-/* SHARE */
+function confirmReset(){
+  if(confirm("Delete full chat?")){
+    document.getElementById("chatbot").src=
+    "https://udify.app/chatbot/sr6l1agghqHaG7e9";
+  }
+}
+
 function share(){
-  navigator.share ? 
-    navigator.share({title:"Noctyxium AI", url:window.location.href}) :
-    alert("Copy link: " + window.location.href);
-}
-
-/* DARK/LIGHT MODE */
-function toggleMode(){
-  if(document.body.style.background=="black"){
-    document.body.style.background="#f5f6f7";
-    document.body.style.color="#000";
+  if(navigator.share){
+    navigator.share({title:"Noctyxium AI",url:window.location.href});
   }else{
-    document.body.style.background="black";
-    document.body.style.color="#fff";
+    alert("Copy link:\n"+window.location.href);
   }
 }
 

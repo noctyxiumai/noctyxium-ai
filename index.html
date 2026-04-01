@@ -10,17 +10,16 @@
 
 body{
   font-family:Arial;
-  background:#0f1115; /* soft dark */
+  background:#0f1115;
   color:#e4e4e4;
 }
 
 /* NAVBAR */
 .navbar{
   background:#12141a;
-  border-bottom:1px solid #1f222b;
   padding:12px;
+  border-bottom:1px solid #1f222b;
   display:flex;
-  justify-content:space-between;
   align-items:center;
 }
 
@@ -29,8 +28,9 @@ body{
   align-items:center;
   gap:8px;
 }
-.logo img{height:30px;}
-.logo span{color:#ff3b3b;}
+
+.logo img{height:28px;}
+.logo span{color:#ff3b3b;font-weight:bold;}
 
 /* LAYOUT */
 .container{
@@ -42,8 +42,8 @@ body{
 .sidebar{
   width:260px;
   background:#12141a;
-  padding:12px;
   border-right:1px solid #1f222b;
+  padding:12px;
   overflow:auto;
 }
 
@@ -65,7 +65,6 @@ body{
   border-radius:6px;
   cursor:pointer;
   font-size:13px;
-  transition:0.2s;
 }
 
 .prompt:hover{
@@ -111,6 +110,7 @@ body{
 .chat-box{
   flex:1;
   padding:10px;
+  background:#0f1115;
 }
 
 iframe{
@@ -118,7 +118,6 @@ iframe{
   height:100%;
   border:none;
   border-radius:10px;
-  background:#0f1115;
 }
 
 /* MOBILE */
@@ -144,26 +143,26 @@ iframe{
 
 <h2>🎬 Explore Stories</h2>
 
-<h3>🔥 Psychological Horror</h3>
-<div class="prompt" onclick="copyPrompt('3AM mirror entity talking to you story cinematic')">Mirror Entity</div>
-<div class="prompt" onclick="copyPrompt('phone camera ghost appearing story realistic horror')">Camera Ghost</div>
-<div class="prompt" onclick="copyPrompt('someone watching you from darkness story')">Watcher in dark</div>
+<h3>🔥 Horror</h3>
+<div class="prompt" onclick="copyPrompt('3AM mirror horror story cinematic')">Mirror Entity</div>
+<div class="prompt" onclick="copyPrompt('ghost watching you in dark story')">Watcher</div>
+<div class="prompt" onclick="copyPrompt('phone camera ghost story')">Camera Ghost</div>
 
-<h3>🌲 Survival + Adventure</h3>
-<div class="prompt" onclick="copyPrompt('lost in forest survival horror with creature')">Forest Survival</div>
-<div class="prompt" onclick="copyPrompt('ancient temple hidden monster story')">Temple Monster</div>
+<h3>🌲 Adventure</h3>
+<div class="prompt" onclick="copyPrompt('lost jungle survival horror story')">Jungle Survival</div>
+<div class="prompt" onclick="copyPrompt('temple treasure danger story')">Temple Danger</div>
 
-<h3>🧠 Deep Mystery</h3>
-<div class="prompt" onclick="copyPrompt('parallel world hidden door mystery story')">Parallel Door</div>
-<div class="prompt" onclick="copyPrompt('man living same day loop mystery story')">Time Loop</div>
+<h3>🧠 Mystery</h3>
+<div class="prompt" onclick="copyPrompt('time loop mystery story')">Time Loop</div>
+<div class="prompt" onclick="copyPrompt('secret hidden room mystery')">Hidden Room</div>
 
 <h3>🔪 Thriller</h3>
-<div class="prompt" onclick="copyPrompt('unknown stalker following you story')">Unknown Stalker</div>
-<div class="prompt" onclick="copyPrompt('kidnap escape dark thriller story')">Escape Thriller</div>
+<div class="prompt" onclick="copyPrompt('unknown stalker thriller story')">Stalker</div>
+<div class="prompt" onclick="copyPrompt('kidnap escape thriller')">Escape</div>
 
-<h3>🚀 Sci-Fi Horror</h3>
-<div class="prompt" onclick="copyPrompt('AI becomes self aware horror story')">Evil AI</div>
-<div class="prompt" onclick="copyPrompt('alien signal controlling humans story')">Alien Signal</div>
+<h3>🚀 Sci-Fi</h3>
+<div class="prompt" onclick="copyPrompt('AI becomes evil story')">Evil AI</div>
+<div class="prompt" onclick="copyPrompt('alien controlling humans story')">Alien Signal</div>
 
 <div class="prompt" onclick="randomPrompt()">🎲 Random Story</div>
 
@@ -182,8 +181,10 @@ Generate cinematic stories instantly
 <button class="btn" onclick="alert('3AM Mode Activated 😈')">⏰ 3AM Mode</button>
 </div>
 
-<div class="chat-box">
-<iframe id="chatbot" src="https://udify.app/chatbot/sr6l1agghqHaG7e9"></iframe>
+<div class="chat-box" id="chat-container">
+<iframe id="chatbot"
+src="https://udify.app/chatbot/sr6l1agghqHaG7e9">
+</iframe>
 </div>
 
 </div>
@@ -192,40 +193,42 @@ Generate cinematic stories instantly
 
 <script>
 
-// COPY PROMPT
+/* COPY */
 function copyPrompt(text){
   navigator.clipboard.writeText(text);
-  alert("Copied:\n"+text+"\n\nPaste in chat 👇");
+  alert("Copied:\n"+text+"\nPaste in chat 👇");
 }
 
-// RANDOM PROMPT
+/* RANDOM */
 function randomPrompt(){
   const arr=[
-    "haunted hospital 3AM story",
-    "dark forest creature story",
-    "AI gone evil story",
+    "dark forest horror story",
+    "AI turning evil",
     "unknown shadow watching you",
-    "time loop horror"
+    "3AM hospital horror",
+    "alien invasion survival"
   ];
-  const r=arr[Math.floor(Math.random()*arr.length)];
-  copyPrompt(r);
+  copyPrompt(arr[Math.floor(Math.random()*arr.length)]);
 }
 
-// ✅ FIXED CLEAR CHAT (WORKING)
+/* ✅ FINAL CLEAR CHAT FIX */
 function clearChat(){
-  let iframe=document.getElementById("chatbot");
-  iframe.src = iframe.src + "?reload=" + new Date().getTime();
+  const container=document.getElementById("chat-container");
+
+  container.innerHTML = `
+    <iframe id="chatbot"
+    src="https://udify.app/chatbot/sr6l1agghqHaG7e9?new=${Date.now()}"
+    style="width:100%;height:100%;border:none;border-radius:10px;">
+    </iframe>
+  `;
 }
 
-// SHARE
+/* SHARE */
 function share(){
   if(navigator.share){
-    navigator.share({
-      title:"Noctyxium AI",
-      url:window.location.href
-    });
+    navigator.share({title:"Noctyxium AI",url:window.location.href});
   }else{
-    alert("Copy link:\n"+window.location.href);
+    alert(window.location.href);
   }
 }
 

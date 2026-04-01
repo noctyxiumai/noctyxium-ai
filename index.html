@@ -1,20 +1,212 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Noctyxium AI</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noctyxium AI</title>
+
+<style>
+* {margin:0; padding:0; box-sizing:border-box;}
+
+body {
+  font-family: Arial;
+  background:#000;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* 🌫️ FOG EFFECT */
+.fog {
+  position: fixed;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.03), transparent 60%);
+  animation: fogMove 25s linear infinite;
+  z-index:0;
+}
+
+@keyframes fogMove {
+  0% {transform: translate(-20%, -20%)}
+  50% {transform: translate(0%, 10%)}
+  100% {transform: translate(20%, -10%)}
+}
+
+/* 👻 PARTICLES */
+.particle {
+  position: fixed;
+  width: 3px;
+  height: 3px;
+  background: white;
+  opacity: 0.2;
+  animation: float 10s infinite linear;
+}
+
+@keyframes float {
+  0% {transform: translateY(100vh)}
+  100% {transform: translateY(-10vh)}
+}
+
+/* NAVBAR */
+.navbar {
+  position: sticky;
+  top:0;
+  background: rgba(0,0,0,0.8);
+  padding: 12px;
+  display:flex;
+  justify-content: space-between;
+  z-index:999;
+}
+
+.navbar a {
+  color:#ccc;
+  margin:5px;
+  padding:8px 12px;
+  border:1px solid #333;
+  border-radius:20px;
+  transition:0.3s;
+}
+
+.navbar a:hover {
+  background:red;
+  box-shadow:0 0 10px red;
+}
+
+/* 🩸 BLOOD TITLE */
+.title {
+  text-align:center;
+  font-size:2.2rem;
+  margin-top:40px;
+  color:#ff0000;
+  text-shadow:
+    0 0 5px #600,
+    0 0 15px red,
+    0 0 30px darkred;
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from {text-shadow:0 0 10px red;}
+  to {text-shadow:0 0 30px crimson;}
+}
+
+/* BLOOD DRIP */
+.title::after {
+  content:"";
+  display:block;
+  width:100%;
+  height:6px;
+  background:red;
+  animation: drip 2s infinite;
+}
+
+@keyframes drip {
+  0% {height:6px;}
+  50% {height:16px;}
+  100% {height:6px;}
+}
+
+/* HERO */
+.hero {
+  text-align:center;
+  margin:20px;
+}
+
+/* BUTTON */
+.btn {
+  padding:10px 15px;
+  margin:10px;
+  background:#111;
+  border:1px solid #444;
+  border-radius:10px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.btn:hover {
+  background:red;
+  transform:scale(1.05);
+  box-shadow:0 0 20px red;
+}
+
+/* CARDS */
+.card {
+  background:#111;
+  margin:10px;
+  padding:15px;
+  border-radius:15px;
+  border:1px solid #333;
+  transition:0.3s;
+}
+
+.card:hover {
+  transform:translateY(-5px);
+  box-shadow:0 0 20px red;
+}
+
+/* CHAT */
+iframe {
+  width:100%;
+  height:700px;
+  border:none;
+  border-radius:15px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .title {font-size:1.5rem;}
+  iframe {height:600px;}
+}
+</style>
 </head>
 
-<body style="background:black; color:white; text-align:center;">
+<body>
 
-<h1>💀 Noctyxium AI Horror Generator</h1>
-<p>Type your fear... if you dare.</p>
+<div class="fog"></div>
 
-<iframe
- src="https://udify.app/chatbot/sr6l1agghqHaG7e9"
- style="width: 100%; height: 100%; min-height: 700px; border:none;"
- frameborder="0"
- allow="microphone">
-</iframe>
+<!-- 👻 PARTICLES -->
+<script>
+for(let i=0;i<30;i++){
+  let p=document.createElement("div");
+  p.className="particle";
+  p.style.left=Math.random()*100+"%";
+  p.style.animationDuration=(5+Math.random()*10)+"s";
+  document.body.appendChild(p);
+}
+</script>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div>💀 Noctyxium AI</div>
+  <div>
+    <a href="#">Home</a>
+    <a href="#chat">AI</a>
+    <a href="#">About</a>
+  </div>
+</div>
+
+<!-- TITLE -->
+<h1 class="title">NOCTYXIUM AI HORROR</h1>
+
+<div class="hero">
+  <p>Type your fear... if you dare.</p>
+  <button class="btn" onclick="scrollToChat()">Open AI</button>
+</div>
+
+<!-- FEATURES -->
+<div class="card">🎬 Cinematic horror stories</div>
+<div class="card">🌍 Multi-language AI</div>
+<div class="card">😈 3AM Fear Mode</div>
+
+<!-- CHAT -->
+<div id="chat" style="margin:20px;">
+  <iframe src="https://udify.app/chatbot/sr6l1agghqHaG7e9"></iframe>
+</div>
+
+<script>
+function scrollToChat(){
+  document.getElementById("chat").scrollIntoView({behavior:"smooth"});
+}
+</script>
 
 </body>
 </html>

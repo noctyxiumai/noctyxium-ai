@@ -19,9 +19,6 @@ body{
   background:#12141a;
   border-bottom:1px solid #1f222b;
   padding:12px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
 }
 
 .logo{
@@ -29,6 +26,7 @@ body{
   align-items:center;
   gap:8px;
 }
+
 .logo img{height:30px;}
 .logo span{color:#ff3b3b;}
 
@@ -49,16 +47,17 @@ body{
 
 .sidebar h2{margin-bottom:10px;}
 .sidebar h3{
-  margin-top:10px;
+  margin-top:12px;
   font-size:12px;
   color:#888;
 }
 
 /* PROMPTS */
 .prompt{
+  display:block;
   background:#1a1d25;
   padding:10px;
-  margin:5px 0;
+  margin:6px 0;
   border-radius:6px;
   cursor:pointer;
   font-size:13px;
@@ -100,7 +99,9 @@ body{
   cursor:pointer;
 }
 
-.btn:hover{border-color:#ff3b3b;}
+.btn:hover{
+  border-color:#ff3b3b;
+}
 
 .chat-box{
   flex:1;
@@ -112,7 +113,6 @@ iframe{
   height:100%;
   border:none;
   border-radius:10px;
-  background:#0f1115;
 }
 
 /* MOBILE */
@@ -161,16 +161,16 @@ iframe{
 
 <div class="prompt" onclick="randomPrompt()">🎲 Random Story</div>
 
-<h3>📖 Blog / Articles</h3>
+<!-- BLOG SECTION FIXED -->
 <h3>📖 Blog / Articles</h3>
 
-<a href="/noctyxium-ai/ai-horror-prompts.html" class="prompt">
+<div class="prompt" onclick="window.location.href='ai-horror-prompts.html'">
 📖 100+ AI Horror Prompts Guide
-</a>
+</div>
 
-<a href="/noctyxium-ai/ai-horror-story-generator.html" class="prompt">
+<div class="prompt" onclick="window.location.href='ai-horror-story-generator.html'">
 🎬 AI Horror Story Generator Guide
-</a>
+</div>
 
 </div>
 
@@ -196,11 +196,14 @@ Generate cinematic stories instantly
 </div>
 
 <script>
+
+// COPY PROMPT
 function copyPrompt(text){
   navigator.clipboard.writeText(text);
   alert("Copied:\n"+text+"\n\nPaste in chat 👇");
 }
 
+// RANDOM PROMPT
 function randomPrompt(){
   const arr=[
     "haunted hospital 3AM story",
@@ -213,11 +216,13 @@ function randomPrompt(){
   copyPrompt(r);
 }
 
+// CLEAR CHAT
 function clearChat(){
   let iframe=document.getElementById("chatbot");
   iframe.src = iframe.src + "?reload=" + new Date().getTime();
 }
 
+// SHARE
 function share(){
   if(navigator.share){
     navigator.share({
@@ -228,6 +233,7 @@ function share(){
     alert("Copy link:\n"+window.location.href);
   }
 }
+
 </script>
 
 </body>

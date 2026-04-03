@@ -10,7 +10,7 @@
 
 body{
   font-family:Arial;
-  background:#0f1115; /* soft dark */
+  background:#0f1115;
   color:#e4e4e4;
 }
 
@@ -47,10 +47,7 @@ body{
   overflow:auto;
 }
 
-.sidebar h2{
-  margin-bottom:10px;
-}
-
+.sidebar h2{margin-bottom:10px;}
 .sidebar h3{
   margin-top:10px;
   font-size:12px;
@@ -103,11 +100,8 @@ body{
   cursor:pointer;
 }
 
-.btn:hover{
-  border-color:#ff3b3b;
-}
+.btn:hover{border-color:#ff3b3b;}
 
-/* CHAT BOX */
 .chat-box{
   flex:1;
   padding:10px;
@@ -166,7 +160,7 @@ iframe{
 <div class="prompt" onclick="copyPrompt('alien signal controlling humans story')">Alien Signal</div>
 
 <div class="prompt" onclick="randomPrompt()">🎲 Random Story</div>
-<h3>📚 Guides</h3>
+
 <h3>📖 Blog / Articles</h3>
 
 <a href="ai-horror-prompts.html" class="prompt">
@@ -176,15 +170,7 @@ iframe{
 <a href="ai-horror-story-generator.html" class="prompt">
 🎬 AI Horror Story Generator Guide
 </a>
-</a>
-<a href="ai-horror-story-generator.html" class="prompt" style="display:flex;align-items:center;gap:10px;border-left:3px solid #ff3b3b;">
-  <span>📖</span>
-  <div>
-    <div style="font-weight:bold;">AI Horror Guide</div>
-    <div style="font-size:11px;color:#888;">Learn + SEO + Prompts</div>
-  </div>
-</a>
-  
+
 </div>
 
 <!-- CHAT -->
@@ -209,14 +195,11 @@ Generate cinematic stories instantly
 </div>
 
 <script>
-
-// COPY PROMPT
 function copyPrompt(text){
   navigator.clipboard.writeText(text);
   alert("Copied:\n"+text+"\n\nPaste in chat 👇");
 }
 
-// RANDOM PROMPT
 function randomPrompt(){
   const arr=[
     "haunted hospital 3AM story",
@@ -229,13 +212,11 @@ function randomPrompt(){
   copyPrompt(r);
 }
 
-// ✅ FIXED CLEAR CHAT (WORKING)
 function clearChat(){
   let iframe=document.getElementById("chatbot");
   iframe.src = iframe.src + "?reload=" + new Date().getTime();
 }
 
-// SHARE
 function share(){
   if(navigator.share){
     navigator.share({
@@ -246,7 +227,6 @@ function share(){
     alert("Copy link:\n"+window.location.href);
   }
 }
-
 </script>
 
 </body>

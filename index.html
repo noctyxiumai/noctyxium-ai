@@ -1,239 +1,252 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Noctyxium AI</title>
+<title>Noctyxium Ultra Pro AI</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-
 body{
-  font-family:Arial;
-  background:#0f1115;
-  color:#e4e4e4;
+margin:0;
+font-family:Arial;
+background:#000;
+color:#fff;
 }
 
-/* NAVBAR */
-.navbar{
-  background:#12141a;
-  border-bottom:1px solid #1f222b;
-  padding:12px;
-}
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.logo img{height:30px;}
-.logo span{color:#ff3b3b;}
-
-/* LAYOUT */
-.container{
-  display:flex;
-  height:calc(100vh - 60px);
-}
-
-/* SIDEBAR */
-.sidebar{
-  width:260px;
-  background:#12141a;
-  padding:12px;
-  border-right:1px solid #1f222b;
-  overflow:auto;
-}
-
-.sidebar h2{margin-bottom:10px;}
-.sidebar h3{
-  margin-top:12px;
-  font-size:12px;
-  color:#888;
-}
-
-/* PROMPTS */
-.prompt{
-  display:block;
-  background:#1a1d25;
-  padding:10px;
-  margin:6px 0;
-  border-radius:6px;
-  cursor:pointer;
-  font-size:13px;
-  transition:0.2s;
-}
-
-.prompt:hover{
-  background:#252a35;
-  border:1px solid #ff3b3b;
+/* HEADER */
+.header{
+text-align:center;
+padding:15px;
+font-size:22px;
+font-weight:bold;
+background:#111;
+color:#ff0033;
 }
 
 /* CHAT */
-.chat-area{
-  flex:1;
-  display:flex;
-  flex-direction:column;
+.chat{
+height:40vh;
+overflow:auto;
+padding:10px;
 }
 
-.chat-header{
-  padding:12px;
-  text-align:center;
-  border-bottom:1px solid #1f222b;
-  color:#ff3b3b;
+.msg{
+margin:10px;
+padding:12px;
+border-radius:12px;
+max-width:80%;
 }
 
-.top-actions{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  padding:10px;
+.user{background:#ff0033;margin-left:auto;}
+.bot{background:#1a1a1a;}
+
+/* INPUT */
+.input-box{
+display:flex;
+gap:5px;
+padding:10px;
+border-top:1px solid #222;
 }
 
-.btn{
-  padding:8px 12px;
-  border-radius:6px;
-  border:1px solid #333;
-  background:#1a1d25;
-  color:#ddd;
-  cursor:pointer;
+input{
+flex:1;
+padding:10px;
+border:none;
+border-radius:10px;
+background:#111;
+color:#fff;
 }
 
-.btn:hover{
-  border-color:#ff3b3b;
+button{
+padding:10px;
+background:#ff0033;
+border:none;
+border-radius:10px;
+color:#fff;
+cursor:pointer;
 }
 
-.chat-box{
-  flex:1;
-  padding:10px;
+/* IDEAS */
+.ideas{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:8px;
+padding:10px;
+height:20vh;
+overflow:auto;
 }
 
-iframe{
-  width:100%;
-  height:100%;
-  border:none;
-  border-radius:10px;
+.idea{
+padding:10px;
+background:#111;
+border-radius:10px;
+cursor:pointer;
 }
 
-/* MOBILE */
-@media(max-width:768px){
-  .sidebar{display:none;}
+/* VIDEO */
+#video{
+height:30vh;
+padding:10px;
+}
+
+#video img{
+width:100%;
+border-radius:10px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="navbar">
-  <div class="logo">
-    <img src="logo.png">
-    <span>Noctyxium AI</span>
-  </div>
+<div class="header">🎬 Noctyxium Ultra Pro AI</div>
+
+<div id="chat" class="chat"></div>
+
+<div class="input-box">
+<input id="input" placeholder="Enter horror idea...">
+<button onclick="generate()">Generate</button>
+<button onclick="speak()">🔊</button>
+<button onclick="video()">🎬</button>
 </div>
 
-<div class="container">
+<div id="video"></div>
 
-<!-- SIDEBAR -->
-<div class="sidebar">
-
-<h2>🎬 Explore Stories</h2>
-
-<h3>🔥 Psychological Horror</h3>
-<div class="prompt" onclick="copyPrompt('3AM mirror entity talking to you story cinematic')">Mirror Entity</div>
-<div class="prompt" onclick="copyPrompt('phone camera ghost appearing story realistic horror')">Camera Ghost</div>
-<div class="prompt" onclick="copyPrompt('someone watching you from darkness story')">Watcher in dark</div>
-
-<h3>🌲 Survival + Adventure</h3>
-<div class="prompt" onclick="copyPrompt('lost in forest survival horror with creature')">Forest Survival</div>
-<div class="prompt" onclick="copyPrompt('ancient temple hidden monster story')">Temple Monster</div>
-
-<h3>🧠 Deep Mystery</h3>
-<div class="prompt" onclick="copyPrompt('parallel world hidden door mystery story')">Parallel Door</div>
-<div class="prompt" onclick="copyPrompt('man living same day loop mystery story')">Time Loop</div>
-
-<h3>🔪 Thriller</h3>
-<div class="prompt" onclick="copyPrompt('unknown stalker following you story')">Unknown Stalker</div>
-<div class="prompt" onclick="copyPrompt('kidnap escape dark thriller story')">Escape Thriller</div>
-
-<h3>🚀 Sci-Fi Horror</h3>
-<div class="prompt" onclick="copyPrompt('AI becomes self aware horror story')">Evil AI</div>
-<div class="prompt" onclick="copyPrompt('alien signal controlling humans story')">Alien Signal</div>
-
-<div class="prompt" onclick="randomPrompt()">🎲 Random Story</div>
-
-<!-- BLOG SECTION FIXED -->
-<h3>📖 Blog / Articles</h3>
-
-<div class="prompt" onclick="window.location.href='ai-horror-prompts.html'">
-📖 100+ AI Horror Prompts Guide
-</div>
-
-<div class="prompt" onclick="window.location.href='ai-horror-story-generator.html'">
-🎬 AI Horror Story Generator Guide
-</div>
-
-</div>
-
-<!-- CHAT -->
-<div class="chat-area">
-
-<div class="chat-header">
-Generate cinematic stories instantly
-</div>
-
-<div class="top-actions">
-<button class="btn" onclick="clearChat()">🗑 Clear Chat</button>
-<button class="btn" onclick="share()">🔗 Share</button>
-<button class="btn" onclick="alert('3AM Mode Activated 😈')">⏰ 3AM Mode</button>
-</div>
-
-<div class="chat-box">
-<iframe id="chatbot" src="https://udify.app/chatbot/sr6l1agghqHaG7e9"></iframe>
-</div>
-
-</div>
-
-</div>
+<div id="ideas" class="ideas"></div>
 
 <script>
+const API_KEY = "YOUR_GEMINI_API_KEY";
 
-// COPY PROMPT
-function copyPrompt(text){
-  navigator.clipboard.writeText(text);
-  alert("Copied:\n"+text+"\n\nPaste in chat 👇");
+/* SYSTEM */
+const SYSTEM = `
+You are a Hollywood horror writer.
+
+Rules:
+- Cinematic horror
+- 3AM scene
+- Short paragraphs
+- Dark tone
+- Twist ending
+`;
+
+/* IDEAS */
+const IDEAS = [
+"3AM mirror entity",
+"ghost inside phone",
+"AI controlling dreams",
+"shadow watching you",
+"time loop horror",
+"abandoned hospital",
+"evil AI CCTV",
+"haunted train"
+];
+
+const chat=document.getElementById("chat");
+
+/* MESSAGE */
+function addMsg(text,type){
+let d=document.createElement("div");
+d.className="msg "+type;
+d.innerText=text;
+chat.appendChild(d);
+chat.scrollTop=chat.scrollHeight;
 }
 
-// RANDOM PROMPT
-function randomPrompt(){
-  const arr=[
-    "haunted hospital 3AM story",
-    "dark forest creature story",
-    "AI gone evil story",
-    "unknown shadow watching you",
-    "time loop horror"
-  ];
-  const r=arr[Math.floor(Math.random()*arr.length)];
-  copyPrompt(r);
+/* GENERATE */
+async function generate(){
+let input=document.getElementById("input");
+let text=input.value.trim();
+if(!text)return;
+
+addMsg(text,"user");
+input.value="";
+addMsg("Generating...","bot");
+
+try{
+let res=await fetch(
+"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key="+API_KEY,
+{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+contents:[{
+parts:[{text:SYSTEM+"\nIdea: "+text}]
+}]
+})
+}
+);
+
+let data=await res.json();
+chat.lastChild.remove();
+
+let reply=data.candidates?.[0]?.content?.parts?.map(p=>p.text).join("")||"Error";
+
+addMsg(reply,"bot");
+
+}catch(e){
+chat.lastChild.remove();
+addMsg("API Error","bot");
+}
 }
 
-// CLEAR CHAT
-function clearChat(){
-  let iframe=document.getElementById("chatbot");
-  iframe.src = iframe.src + "?reload=" + new Date().getTime();
+/* VOICE */
+function speak(){
+let text=document.querySelector(".bot:last-child")?.innerText;
+if(!text)return;
+
+let speech=new SpeechSynthesisUtterance(text);
+speech.rate=0.9;
+speech.pitch=0.7;
+speechSynthesis.speak(speech);
 }
 
-// SHARE
-function share(){
-  if(navigator.share){
-    navigator.share({
-      title:"Noctyxium AI",
-      url:window.location.href
-    });
-  }else{
-    alert("Copy link:\n"+window.location.href);
-  }
+/* SPLIT SCENES */
+function split(text){
+return text.split(". ").slice(0,5);
 }
 
+/* IMAGE */
+function img(q){
+return "https://source.unsplash.com/800x500/?horror,"+q;
+}
+
+/* VIDEO */
+function video(){
+let text=document.querySelector(".bot:last-child")?.innerText;
+if(!text)return;
+
+let scenes=split(text);
+let box=document.getElementById("video");
+
+let i=0;
+
+function show(){
+if(i>=scenes.length)return;
+
+let image=document.createElement("img");
+image.src=img(scenes[i]);
+
+box.innerHTML="";
+box.appendChild(image);
+
+i++;
+setTimeout(show,2000);
+}
+
+show();
+}
+
+/* LOAD IDEAS */
+const ideasDiv=document.getElementById("ideas");
+
+IDEAS.forEach(i=>{
+let d=document.createElement("div");
+d.className="idea";
+d.innerText=i;
+d.onclick=()=>{
+document.getElementById("input").value=i;
+};
+ideasDiv.appendChild(d);
+});
 </script>
 
 </body>

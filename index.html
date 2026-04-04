@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Noctyxium AI</title>
-
-<style>
+<title>Noctyxium AI</title><style>
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
@@ -106,70 +103,48 @@ iframe{
   border:none;
   border-radius:12px;
 }
-</style>
-</head>
-
-<body>
-
-<div class="navbar">
+</style></head><body><div class="navbar">
   <div class="menu-btn" onclick="toggleMenu()">☰</div>
   <div class="logo"><span>Noctyxium AI</span></div>
-</div>
-
-<div class="sidebar" id="sidebar">
-
-<h2>🎬 Explore Stories</h2>
-
-<div class="prompt" onclick="copyPrompt('3AM mirror entity horror story')">Mirror Entity</div>
+</div><div class="sidebar" id="sidebar"><h2>🎬 Explore Stories</h2><div class="prompt" onclick="copyPrompt('3AM mirror entity horror story')">Mirror Entity</div>
 <div class="prompt" onclick="copyPrompt('ghost in camera horror')">Camera Ghost</div>
-<div class="prompt" onclick="copyPrompt('shadow watching you horror')">Watcher</div>
-
-<div class="prompt" onclick="randomPrompt()">🎲 Random Story</div>
-
-<h3>🔥 Netflix Ideas</h3>
-<div id="ideas"></div>
-
-<h3>📖 Blog</h3>
-<div class="prompt" onclick="window.location.href='ai-horror-prompts.html'">100+ Prompts</div>
-
-</div>
-
-<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
-<div class="chat-header">Generate cinematic stories instantly</div>
-
-<div class="top-actions">
+<div class="prompt" onclick="copyPrompt('shadow watching you horror')">Watcher</div><div class="prompt" onclick="randomPrompt()">🎲 Random Story</div><h3>🔥 Netflix Ideas</h3>
+<div id="ideas"></div><h3>📖 Blog</h3>
+<div class="prompt" onclick="window.location.href='ai-horror-prompts.html'">100+ Prompts</div></div><div class="overlay" id="overlay" onclick="toggleMenu()"></div><div class="chat-header">Generate cinematic stories instantly</div><div class="top-actions">
 <button class="btn" onclick="clearChat()">🗑</button>
 <button class="btn" onclick="share()">🔗</button>
-</div>
-
-<div class="chat-box">
+</div><div class="chat-box">
 <iframe id="chatbot" src="https://udify.app/chatbot/sr6l1agghqHaG7e9"></iframe>
-</div>
-
-<script>
+</div><script>
 
 /* MENU */
 function toggleMenu(){
-  sidebar.classList.toggle("active");
-  overlay.classList.toggle("active");
+  document.getElementById("sidebar").classList.toggle("active");
+  document.getElementById("overlay").classList.toggle("active");
 }
 
 /* COPY */
 function copyPrompt(text){
-  navigator.clipboard.writeText(text);
-  alert("Copied!");
+  navigator.clipboard.writeText(text)
+  .then(()=>alert("Copied!"))
+  .catch(()=>alert("Copy failed"));
 }
 
 /* RANDOM */
 function randomPrompt(){
-  const arr=["3AM horror","ghost","AI horror","time loop"];
+  const arr=[
+    "3AM jungle creature horror",
+    "AI controlling human brain",
+    "lost forest expedition horror",
+    "time loop death story"
+  ];
   copyPrompt(arr[Math.floor(Math.random()*arr.length)]);
 }
 
 /* CLEAR */
 function clearChat(){
-  chatbot.src = chatbot.src.split("?")[0] + "?reload=" + Date.now();
+  let iframe=document.getElementById("chatbot");
+  iframe.src = iframe.src.split("?")[0] + "?reload=" + Date.now();
 }
 
 /* SHARE */
@@ -178,128 +153,54 @@ function share(){
   alert("Link copied!");
 }
 
-/* ===================== */
-/* 🎬 100 NETFLIX IDEAS */
-/* ===================== */
-
+/* 🎬 NETFLIX IDEAS */
 const IDEAS = [
-"
-const IDEAS = [
+"Amazon jungle expedition finds humans being hunted by invisible predators",
+"Himalayan cave where time reverses and dead explorers return",
+"Forest where shadows move without bodies",
+"Lost tribe that mimics human voices to hunt victims",
+"Jungle parasite that controls animals and humans",
+"River showing your future death reflection",
+"Forest where memories become real creatures",
+"Plane crash survivors replaced by copies",
+"Wildlife camera captures unseen entity hunting humans",
+"Forest where sound becomes deadly weapon",
 
-"Lost expedition in Amazon jungle discovers a tribe that hunts humans using sound of their own memories",
+"Abandoned research lab releasing unknown jungle creature",
+"Jungle where gravity changes randomly",
+"Hidden valley where humans are prey species",
+"Tree roots absorbing humans alive",
+"AI drone discovering unknown lifeform hunting people",
 
-"A rescue team enters Himalayan cave where time moves backward and dead explorers start walking again",
+"Forest that erases people from reality",
+"Camera recording future deaths",
+"Creature living inside reflections",
+"Night forest where stars move wrong",
+"Jungle storm bringing voices of dead",
 
-"A wildlife photographer captures a creature that only appears in reflections inside deep forest",
+"Mirror portal inside cave leading to alternate world",
+"Forest virus causing hallucinations that are real",
+"Survival team hunted by unseen intelligence",
+"Underground bunker hiding failed experiments",
+"Forest where time loop removes people one by one",
 
-"A group of friends trapped in a safari discovers animals are being controlled by an unseen intelligence",
-
-"A forest where every tree records screams of people who died there — and replays them at night",
-
-"Survivors of a plane crash realize jungle is alive and slowly replacing them with copies",
-
-"A documentary crew filming in Congo finds a hidden species that mimics humans perfectly",
-
-"A ranger discovers missing hikers are alive… but no longer human",
-
-"A cursed river in Amazon shows your future death in its reflection",
-
-"A jungle where shadows move independently from bodies",
-
-"A research team finds ancient parasite controlling predators — and humans become next",
-
-"A deep forest where GPS leads you to places that don’t exist",
-
-"A hidden valley where evolution never stopped — and humans are prey",
-
-"A biologist studies a flower that blooms only when someone dies nearby",
-
-"A tribe worships a creature that lives inside human fear itself",
-
-"A missing expedition returns… but their eyes reflect something else",
-
-"A cave system where sound becomes physical and attacks people",
-
-"A jungle virus that makes victims see creatures that are actually real",
-
-"A forest where time loops but each loop removes one person forever",
-
-"A scientist creates AI animals — but they evolve into something else",
-
-"A group camping in forest realizes stars are moving incorrectly above them",
-
-"A hidden bunker in jungle contains experiments that never died",
-
-"A wildlife drone captures footage of humans being hunted like animals",
-
-"A forbidden mountain where climbers vanish into thin air — literally",
-
-"A tribe that sacrifices outsiders to keep something underground asleep",
-
-"A satellite detects movement in forest where no life should exist",
-
-"A forest lake that pulls people into alternate reality versions of themselves",
-
-"A survival team realizes jungle is rewriting their memories",
-
-"A camera crew finds abandoned village where everyone disappeared mid-action",
-
-"A night vision camera shows creatures invisible to naked eye",
-
-"A jungle where no sound exists — except whispers in your head",
-
-"A missing person case reveals forest creates clones to replace victims",
-
-"A group enters forest where gravity shifts randomly",
-
-"A hidden research lab experimenting on fear-based creatures escapes containment",
-
-"A jungle temple that changes its structure every night",
-
-"A rescue helicopter crashes into a forest where dead never decay",
-
-"A scientist discovers plants communicating — and planning",
-
-"A forest that grows over people alive and turns them into trees",
-
-"A cursed expedition where everyone sees a different reality",
-
-"A creature that hunts based on heartbeat sound",
-
-"A ranger discovers animals are fleeing something far worse",
-
-"A jungle where fire spreads without burning anything",
-
-"A hidden species that only exists in darkness",
-
-"A research drone records humans being copied by unknown entity",
-
-"A forest cave where your reflection moves before you do",
-
-"A lost city where time is frozen but something is still alive",
-
-"A group trapped in forest where dreams become reality",
-
-"A parasite that connects minds and spreads fear physically",
-
-"A forest storm that brings voices of the dead",
-
-"A creature that lives inside human shadow",
-
-"A jungle expedition where maps change every hour"
-
+"AI system controlling entire ecosystem",
+"Jungle temple changing structure every night",
+"Shadow creature copying human actions",
+"Forest lake pulling people into alternate dimension",
+"Hidden species evolving faster than humans"
 ];
-];
+
+/* LOAD IDEAS */
+const ideasDiv = document.getElementById("ideas");
 
 IDEAS.forEach(i=>{
   let d=document.createElement("div");
   d.className="prompt";
   d.innerText="🎬 "+i;
   d.onclick=function(){copyPrompt(i)};
-  ideas.appendChild(d);
+  ideasDiv.appendChild(d);
 });
 
-</script>
-
-</body>
+</script></body>
 </html>

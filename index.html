@@ -1,193 +1,240 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Noctyxium Ultra Pro</title><style>
+<title>Noctyxium AI</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
 body{
-margin:0;
-font-family:Arial;
-background:#0d0d0d;
-color:white;
+  font-family:Arial;
+  background:#0f1115;
+  color:#e4e4e4;
 }
 
-/* HEADER */
-.header{
-text-align:center;
-padding:18px;
-font-size:22px;
-font-weight:bold;
-background:linear-gradient(90deg,#ff004c,#ff4d6d);
-color:white;
+/* NAVBAR */
+.navbar{
+  background:#12141a;
+  border-bottom:1px solid #1f222b;
+  padding:12px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.logo img{height:30px;}
+.logo span{color:#ff3b3b;}
+
+/* LAYOUT */
+.container{
+  display:flex;
+  height:calc(100vh - 60px);
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:260px;
+  background:#12141a;
+  padding:12px;
+  border-right:1px solid #1f222b;
+  overflow:auto;
+}
+
+.sidebar h2{margin-bottom:10px;}
+.sidebar h3{
+  margin-top:12px;
+  font-size:12px;
+  color:#888;
+}
+
+/* PROMPTS */
+.prompt{
+  display:block;
+  background:#1a1d25;
+  padding:10px;
+  margin:6px 0;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:13px;
+  transition:0.2s;
+}
+
+.prompt:hover{
+  background:#252a35;
+  border:1px solid #ff3b3b;
 }
 
 /* CHAT */
-.chat{
-height:55vh;
-overflow:auto;
-padding:15px;
+.chat-area{
+  flex:1;
+  display:flex;
+  flex-direction:column;
 }
 
-.msg{
-margin:12px 0;
-padding:14px;
-border-radius:15px;
-max-width:75%;
-line-height:1.5;
+.chat-header{
+  padding:12px;
+  text-align:center;
+  border-bottom:1px solid #1f222b;
+  color:#ff3b3b;
 }
 
-.user{
-background:#ff004c;
-margin-left:auto;
+.top-actions{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  padding:10px;
 }
 
-.bot{
-background:#1a1a1a;
-border-left:3px solid #ff004c;
+.btn{
+  padding:8px 12px;
+  border-radius:6px;
+  border:1px solid #333;
+  background:#1a1d25;
+  color:#ddd;
+  cursor:pointer;
 }
 
-/* INPUT */
-.input-box{
-display:flex;
-gap:10px;
-padding:10px;
-background:#111;
+.btn:hover{
+  border-color:#ff3b3b;
 }
 
-input{
-flex:1;
-padding:12px;
-border:none;
-border-radius:10px;
-background:#1a1a1a;
-color:white;
+.chat-box{
+  flex:1;
+  padding:10px;
 }
 
-button{
-padding:12px;
-background:#ff004c;
-color:white;
-border:none;
-border-radius:10px;
-cursor:pointer;
+iframe{
+  width:100%;
+  height:100%;
+  border:none;
+  border-radius:10px;
 }
 
-/* IDEAS */
-.ideas{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:10px;
-padding:10px;
-height:35vh;
-overflow:auto;
-background:#111;
+/* MOBILE */
+@media(max-width:768px){
+  .sidebar{display:none;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <div class="logo">
+    <img src="logo.png">
+    <span>Noctyxium AI</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+<h2>🎬 Explore Stories</h2>
+
+<h3>🔥 Psychological Horror</h3>
+<div class="prompt" onclick="copyPrompt('3AM mirror entity talking to you story cinematic')">Mirror Entity</div>
+<div class="prompt" onclick="copyPrompt('phone camera ghost appearing story realistic horror')">Camera Ghost</div>
+<div class="prompt" onclick="copyPrompt('someone watching you from darkness story')">Watcher in dark</div>
+
+<h3>🌲 Survival + Adventure</h3>
+<div class="prompt" onclick="copyPrompt('lost in forest survival horror with creature')">Forest Survival</div>
+<div class="prompt" onclick="copyPrompt('ancient temple hidden monster story')">Temple Monster</div>
+
+<h3>🧠 Deep Mystery</h3>
+<div class="prompt" onclick="copyPrompt('parallel world hidden door mystery story')">Parallel Door</div>
+<div class="prompt" onclick="copyPrompt('man living same day loop mystery story')">Time Loop</div>
+
+<h3>🔪 Thriller</h3>
+<div class="prompt" onclick="copyPrompt('unknown stalker following you story')">Unknown Stalker</div>
+<div class="prompt" onclick="copyPrompt('kidnap escape dark thriller story')">Escape Thriller</div>
+
+<h3>🚀 Sci-Fi Horror</h3>
+<div class="prompt" onclick="copyPrompt('AI becomes self aware horror story')">Evil AI</div>
+<div class="prompt" onclick="copyPrompt('alien signal controlling humans story')">Alien Signal</div>
+
+<div class="prompt" onclick="randomPrompt()">🎲 Random Story</div>
+
+<!-- BLOG SECTION FIXED -->
+<h3>📖 Blog / Articles</h3>
+
+<div class="prompt" onclick="window.location.href='ai-horror-prompts.html'">
+📖 100+ AI Horror Prompts Guide
+</div>
+
+<div class="prompt" onclick="window.location.href='ai-horror-story-generator.html'">
+🎬 AI Horror Story Generator Guide
+</div>
+
+</div>
+
+<!-- CHAT -->
+<div class="chat-area">
+
+<div class="chat-header">
+Generate cinematic stories instantly
+</div>
+
+<div class="top-actions">
+<button class="btn" onclick="clearChat()">🗑 Clear Chat</button>
+<button class="btn" onclick="share()">🔗 Share</button>
+<button class="btn" onclick="alert('3AM Mode Activated 😈')">⏰ 3AM Mode</button>
+</div>
+
+<div class="chat-box">
+<iframe id="chatbot" src="https://udify.app/chatbot/sr6l1agghqHaG7e9"></iframe>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+// COPY PROMPT
+function copyPrompt(text){
+  navigator.clipboard.writeText(text);
+  alert("Copied:\n"+text+"\n\nPaste in chat 👇");
 }
 
-.idea{
-padding:12px;
-border-radius:12px;
-cursor:pointer;
-background:#1a1a1a;
-transition:0.3s;
+// RANDOM PROMPT
+function randomPrompt(){
+  const arr=[
+    "haunted hospital 3AM story",
+    "dark forest creature story",
+    "AI gone evil story",
+    "unknown shadow watching you",
+    "time loop horror"
+  ];
+  const r=arr[Math.floor(Math.random()*arr.length)];
+  copyPrompt(r);
 }
 
-.idea:hover{
-background:#ff004c;
-}
-</style></head><body><div class="header">🎬 Noctyxium Horror Engine</div><div id="chat" class="chat"></div><div class="input-box">
-<input id="input" placeholder="Enter horror idea...">
-<button onclick="generate()">Generate</button>
-<button onclick="speak()">🔊</button>
-</div><div id="ideas" class="ideas"></div><script>
-const API_KEY = "PASTE_YOUR_GEMINI_API_KEY";
-
-const SYSTEM = `
-You are a cinematic horror generator.
-
-- Netflix style
-- Add 3AM
-- Dark suspense
-- Twist ending
-`;
-
-const IDEAS = [
-"3AM mirror entity",
-"haunted hospital",
-"AI gone evil",
-"dark forest creature",
-"time loop horror",
-"shadow watching you",
-"abandoned school",
-"ghost train",
-"dark corridor",
-"unknown stalker"
-];
-
-const chat=document.getElementById("chat");
-
-function addMsg(text,type){
-let d=document.createElement("div");
-d.className="msg "+type;
-d.innerText=text;
-chat.appendChild(d);
-chat.scrollTop=chat.scrollHeight;
+// CLEAR CHAT
+function clearChat(){
+  let iframe=document.getElementById("chatbot");
+  iframe.src = iframe.src + "?reload=" + new Date().getTime();
 }
 
-async function generate(){
-let input=document.getElementById("input");
-let text=input.value.trim();
-if(!text)return;
-
-addMsg(text,"user");
-input.value="";
-
-addMsg("Generating horror...","bot");
-
-try{
-let res=await fetch(
-"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key="+API_KEY,
-{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({
-contents:[{parts:[{text:SYSTEM+"\nIdea:"+text}]}]
-})
-}
-);
-
-let data=await res.json();
-
-chat.lastChild.remove();
-
-let reply="Error";
-
-if(data.candidates){
-reply=data.candidates[0].content.parts.map(p=>p.text).join("");
+// SHARE
+function share(){
+  if(navigator.share){
+    navigator.share({
+      title:"Noctyxium AI",
+      url:window.location.href
+    });
+  }else{
+    alert("Copy link:\n"+window.location.href);
+  }
 }
 
-addMsg(reply,"bot");
+</script>
 
-}catch(e){
-chat.lastChild.remove();
-addMsg("Error loading AI","bot");
-}
-}
-
-function speak(){
-let text=document.querySelector(".bot:last-child")?.innerText;
-if(!text)return;
-let speech=new SpeechSynthesisUtterance(text);
-speech.rate=0.9;
-speechSynthesis.speak(speech);
-}
-
-const ideasDiv=document.getElementById("ideas");
-
-IDEAS.forEach(i=>{
-let d=document.createElement("div");
-d.className="idea";
-d.innerText=i;
-d.onclick=()=>{document.getElementById("input").value=i};
-ideasDiv.appendChild(d);
-});
-</script></body>
+</body>
 </html>

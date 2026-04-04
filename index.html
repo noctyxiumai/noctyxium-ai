@@ -12,6 +12,7 @@ body{
   font-family:Arial;
   background:#0f1115;
   color:#e4e4e4;
+  overflow-x:hidden;
 }
 
 /* NAVBAR */
@@ -19,48 +20,59 @@ body{
   background:#12141a;
   border-bottom:1px solid #1f222b;
   padding:12px;
-}
-
-.logo{
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:10px;
 }
 
-.logo img{height:30px;}
-.logo span{color:#ff3b3b;}
-
-/* LAYOUT */
-.container{
-  display:flex;
-  height:calc(100vh - 60px);
+.menu-btn{
+  font-size:20px;
+  cursor:pointer;
 }
 
-/* SIDEBAR */
+.logo span{color:#ff3b3b;font-weight:bold;}
+
+/* SLIDE SIDEBAR */
 .sidebar{
+  position:fixed;
+  top:0;
+  left:-260px;
   width:260px;
+  height:100%;
   background:#12141a;
   padding:12px;
-  border-right:1px solid #1f222b;
+  transition:0.3s;
+  z-index:1000;
   overflow:auto;
 }
 
-.sidebar h2{margin-bottom:10px;}
-.sidebar h3{
-  margin-top:12px;
-  font-size:12px;
-  color:#888;
+.sidebar.active{
+  left:0;
+}
+
+/* OVERLAY */
+.overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.5);
+  display:none;
+  z-index:999;
+}
+
+.overlay.active{
+  display:block;
 }
 
 /* PROMPTS */
 .prompt{
-  display:block;
   background:#1a1d25;
   padding:10px;
   margin:6px 0;
-  border-radius:6px;
+  border-radius:8px;
   cursor:pointer;
-  font-size:13px;
   transition:0.2s;
 }
 
@@ -71,31 +83,26 @@ body{
 
 /* CHAT */
 .chat-area{
-  flex:1;
-  display:flex;
-  flex-direction:column;
+  padding-top:10px;
 }
 
 .chat-header{
-  padding:12px;
   text-align:center;
-  border-bottom:1px solid #1f222b;
   color:#ff3b3b;
+  padding:10px;
 }
 
 .top-actions{
   display:flex;
   justify-content:center;
   gap:10px;
-  padding:10px;
 }
 
 .btn{
   padding:8px 12px;
-  border-radius:6px;
-  border:1px solid #333;
+  border-radius:8px;
   background:#1a1d25;
-  color:#ddd;
+  border:1px solid #333;
   cursor:pointer;
 }
 
@@ -103,76 +110,58 @@ body{
   border-color:#ff3b3b;
 }
 
+/* CHAT BOX */
 .chat-box{
-  flex:1;
   padding:10px;
+  height:75vh;
 }
 
 iframe{
   width:100%;
   height:100%;
   border:none;
-  border-radius:10px;
+  border-radius:12px;
+  box-shadow:0 0 20px rgba(0,0,0,0.5);
 }
 
-/* MOBILE */
-@media(max-width:768px){
-  .sidebar{display:none;}
+/* ANIMATION */
+.sidebar.active{
+  animation:slideIn 0.3s ease;
 }
+
+@keyframes slideIn{
+  from{left:-260px;}
+  to{left:0;}
+}
+
 </style>
 </head>
 
 <body>
 
+<!-- NAVBAR -->
 <div class="navbar">
-  <div class="logo">
-    <img src="logo.png">
-    <span>Noctyxium AI</span>
-  </div>
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+  <div class="logo"><span>Noctyxium AI</span></div>
 </div>
 
-<div class="container">
-
 <!-- SIDEBAR -->
-<div class="sidebar">
+<div class="sidebar" id="sidebar">
 
 <h2>🎬 Explore Stories</h2>
 
-<h3>🔥 Psychological Horror</h3>
-<div class="prompt" onclick="copyPrompt('3AM mirror entity talking to you story cinematic')">Mirror Entity</div>
-<div class="prompt" onclick="copyPrompt('phone camera ghost appearing story realistic horror')">Camera Ghost</div>
-<div class="prompt" onclick="copyPrompt('someone watching you from darkness story')">Watcher in dark</div>
-
-<h3>🌲 Survival + Adventure</h3>
-<div class="prompt" onclick="copyPrompt('lost in forest survival horror with creature')">Forest Survival</div>
-<div class="prompt" onclick="copyPrompt('ancient temple hidden monster story')">Temple Monster</div>
-
-<h3>🧠 Deep Mystery</h3>
-<div class="prompt" onclick="copyPrompt('parallel world hidden door mystery story')">Parallel Door</div>
-<div class="prompt" onclick="copyPrompt('man living same day loop mystery story')">Time Loop</div>
-
-<h3>🔪 Thriller</h3>
-<div class="prompt" onclick="copyPrompt('unknown stalker following you story')">Unknown Stalker</div>
-<div class="prompt" onclick="copyPrompt('kidnap escape dark thriller story')">Escape Thriller</div>
-
-<h3>🚀 Sci-Fi Horror</h3>
-<div class="prompt" onclick="copyPrompt('AI becomes self aware horror story')">Evil AI</div>
-<div class="prompt" onclick="copyPrompt('alien signal controlling humans story')">Alien Signal</div>
+<div class="prompt" onclick="copyPrompt('3AM mirror entity horror story')">Mirror Entity</div>
+<div class="prompt" onclick="copyPrompt('ghost in camera horror')">Camera Ghost</div>
+<div class="prompt" onclick="copyPrompt('shadow watching you horror')">Watcher</div>
 
 <div class="prompt" onclick="randomPrompt()">🎲 Random Story</div>
 
-<!-- BLOG SECTION FIXED -->
-<h3>📖 Blog / Articles</h3>
-
-<div class="prompt" onclick="window.location.href='ai-horror-prompts.html'">
-📖 100+ AI Horror Prompts Guide
-</div>
-
-<div class="prompt" onclick="window.location.href='ai-horror-story-generator.html'">
-🎬 AI Horror Story Generator Guide
-</div>
+<h3>📖 Blog</h3>
+<div class="prompt" onclick="window.location.href='ai-horror-prompts.html'">100+ Prompts</div>
 
 </div>
+
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
 <!-- CHAT -->
 <div class="chat-area">
@@ -182,9 +171,9 @@ Generate cinematic stories instantly
 </div>
 
 <div class="top-actions">
-<button class="btn" onclick="clearChat()">🗑 Clear Chat</button>
-<button class="btn" onclick="share()">🔗 Share</button>
-<button class="btn" onclick="alert('3AM Mode Activated 😈')">⏰ 3AM Mode</button>
+<button class="btn" onclick="clearChat()">🗑</button>
+<button class="btn" onclick="share()">🔗</button>
+<button class="btn" onclick="alert('3AM Mode 😈')">⏰</button>
 </div>
 
 <div class="chat-box">
@@ -193,44 +182,51 @@ Generate cinematic stories instantly
 
 </div>
 
-</div>
-
 <script>
 
-// COPY PROMPT
+/* MENU */
+function toggleMenu(){
+  document.getElementById("sidebar").classList.toggle("active");
+  document.getElementById("overlay").classList.toggle("active");
+}
+
+/* COPY */
 function copyPrompt(text){
   navigator.clipboard.writeText(text);
-  alert("Copied:\n"+text+"\n\nPaste in chat 👇");
+  alert("Copied!");
 }
 
-// RANDOM PROMPT
+/* RANDOM */
 function randomPrompt(){
   const arr=[
-    "haunted hospital 3AM story",
-    "dark forest creature story",
-    "AI gone evil story",
-    "unknown shadow watching you",
+    "3AM horror hospital",
+    "ghost calling your name",
+    "AI gone evil",
     "time loop horror"
   ];
-  const r=arr[Math.floor(Math.random()*arr.length)];
-  copyPrompt(r);
+  copyPrompt(arr[Math.floor(Math.random()*arr.length)]);
 }
 
-// CLEAR CHAT
-function clearChat(){
-  let iframe=document.getElementById("chatbot");
-  iframe.src = iframe.src + "?reload=" + new Date().getTime();
-}
+/* CLEAR */
 
-// SHARE
 function share(){
   if(navigator.share){
     navigator.share({
       title:"Noctyxium AI",
+      text:"Create horror stories instantly 😈",
       url:window.location.href
     });
   }else{
-    alert("Copy link:\n"+window.location.href);
+    navigator.clipboard.writeText(window.location.href);
+    alert("Link copied!");
+  }
+  }
+/* SHARE */
+function share(){
+  if(navigator.share){
+    navigator.share({title:"Noctyxium AI",url:location.href});
+  }else{
+    alert("Copy link:\n"+location.href);
   }
 }
 

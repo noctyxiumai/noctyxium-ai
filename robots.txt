@@ -1,0 +1,28 @@
+User-agent: *
+Allow: /
+
+# Block unnecessary bots (optional security)
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+# Allow Google full access
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+# Crawl delay (for small hosting safety)
+Crawl-delay: 5
+
+# Sitemap
+Sitemap: https://noctyxiumai.github.io/noctyxium-ai/sitemap.xml

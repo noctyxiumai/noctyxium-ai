@@ -221,7 +221,111 @@ function share(){
     alert("Copy link:\n"+location.href);
   }
 }
+<script>
 
+// ==========================
+// TRENDING + AI SYSTEM
+// ==========================
+
+const TRENDING = [
+"3AM elevator stuck between floors",
+"dark web live ghost stream",
+"AI predicting your death time",
+"mirror showing future corpse",
+"unknown number calling at 3AM",
+"camera capturing invisible entity",
+"room where time doesn't move",
+"door that shouldn't exist",
+"shadow mimicking your actions",
+"TV showing your future death"
+];
+
+// LOAD TRENDING
+const trendingDiv = document.getElementById("trending");
+
+TRENDING.forEach(i=>{
+  let d=document.createElement("div");
+  d.className="prompt";
+  d.innerText="🔥 "+i;
+  d.onclick=()=>copyPrompt(i);
+  trendingDiv.appendChild(d);
+});
+
+// ==========================
+// AI AUTO IDEA GENERATOR
+// ==========================
+
+const API_KEY = "PASTE_YOUR_GEMINI_API_KEY";
+
+async function generateIdeas(){
+
+  try{
+    let res = await fetch(
+      "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key="+API_KEY,
+      {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+          contents:[{
+            parts:[{
+              text:`Generate 10 short Netflix-level horror story ideas.
+              Use dark, 3AM, AI, ghost, thriller themes.
+              Only give ideas in 1 line each.`
+            }]
+          }]
+        })
+      }
+    );
+
+    let data = await res.json();
+
+    let text = data.candidates[0].content.parts[0].text;
+
+    let ideas = text.split("\n").filter(x=>x.trim());
+
+    showAIIdeas(ideas);
+
+  }catch(e){
+    console.log("AI error");
+  }
+}
+
+// SHOW AI IDEAS
+function showAIIdeas(list){
+  const aiDiv = document.getElementById("aiIdeas");
+  aiDiv.innerHTML="";
+
+  list.forEach(i=>{
+    let d=document.createElement("div");
+    d.className="prompt";
+    d.innerText="🤖 "+i;
+    d.onclick=()=>copyPrompt(i);
+    aiDiv.appendChild(d);
+  });
+}
+
+// AUTO LOAD DAILY
+generateIdeas();
+
+// ==========================
+// VIRAL SYSTEM
+// ==========================
+
+function boostViral(){
+  let all = document.querySelectorAll(".prompt");
+
+  all.forEach((el,i)=>{
+    if(i % 5 === 0){
+      el.style.border="1px solid red";
+      el.style.boxShadow="0 0 10px red";
+    }
+  });
+}
+
+setTimeout(boostViral,2000);
+
+</script>
+  
 </script>
 
 </body>

@@ -2,4 +2,3 @@ User-agent: *
 Allow: /
 
 Sitemap: https://noctyxiumai.github.io/noctyxium-ai/sitemap.xml
-Host: https://noctyxiumai.github.io
